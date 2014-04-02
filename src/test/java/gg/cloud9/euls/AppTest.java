@@ -1,4 +1,4 @@
-package com.cloud9.euls;
+package gg.cloud9.euls;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
