@@ -1,10 +1,25 @@
 <configuration>
-	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>project.log</file>
 		<encoder>
-			<pattern>%msg%n</pattern>
+			<pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.err</target>
+		<encoder>
+			<pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
+			</pattern>
 		</encoder>
 	</appender>
 
+	<root level="debug">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDERR" />
+	</root>
+
+	<logger name="gg.cloud9" level="TRACE" />
 
 	<logger name="org.reflections" level="warn" />
 
@@ -14,7 +29,7 @@
 	<logger name="clarity.decoder.StringTableApplier" level="info" />
 	<logger name="clarity.decoder.PacketEntitiesDecoder" level="info" />
 	<logger name="clarity.decoder.TempEntitiesDecoder" level="info" />
-	
+
 	<logger name="clarity.parser.handler.DemClassInfoHandler" level="info" />
 	<logger name="clarity.parser.handler.DemFileHeaderHandler" level="info" />
 	<logger name="clarity.parser.handler.DemStringTablesHandler" level="info" />
@@ -37,11 +52,6 @@
 	<logger name="clarity.parser.handler.UserMsgDodgeTrackingProjectilesHandler" level="info" />
 	<logger name="clarity.parser.handler.UserMsgParticleManagerHandler" level="info" />
 	<logger name="clarity.parser.handler.UserMsgGamerulesStateChangedHandler" level="info" />
-		
-	<root level="info">
-		<appender-ref ref="stdout" />
-	</root>
-	
 </configuration>
 
 
