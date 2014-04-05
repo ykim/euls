@@ -1,5 +1,7 @@
 package gg.cloud9.euls;
 
+import skadistats.clarity.model.Entity;
+
 import javax.vecmath.Vector2f;
 
 public class Utils {
@@ -10,5 +12,21 @@ public class Utils {
         float xCoordinate = ((xPosition * cellWidth) - MAX_COORDINATE) + offsets.x;
         float yCoordinate = ((yPosition * cellWidth) - MAX_COORDINATE) + offsets.y;
         return new Vector2f(xCoordinate, yCoordinate);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T getPropertyFromEntity(Entity e, String name) {
+        if (e != null) {
+            return (T) e.getProperty(name);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T[] getArrayPropertyFromEntity(Entity e, Class<T> clazz, String name) {
+        if (e != null) {
+            return e.getArrayProperty(clazz, name);
+        }
+        return null;
     }
 }

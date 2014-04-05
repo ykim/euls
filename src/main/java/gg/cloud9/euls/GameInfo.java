@@ -3,7 +3,7 @@ package gg.cloud9.euls;
 import gg.cloud9.euls.constants.DotaGameConstants;
 import gg.cloud9.euls.constants.DotaGameInfoConstants;
 import skadistats.clarity.match.Match;
-import skadistats.clarity.model.Entity;
+
 import java.util.Arrays;
 
 public class GameInfo {
@@ -13,33 +13,15 @@ public class GameInfo {
         this.match = match;
     }
 
-    @SuppressWarnings("unchecked")
-    private <T> T getProperty(String name) {
-        Entity e = this.match.getGameRulesProxy();
-        if (e != null) {
-            return (T) e.getProperty(name);
-        }
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> T[] getArrayProperty(Class<T> clazz, String name) {
-        Entity e = this.match.getGameRulesProxy();
-        if (e != null) {
-            return e.getArrayProperty(clazz, name);
-        }
-        return null;
-    }
-
     // Returns Match ID of Game
     public float getMatchId() {
-        Integer matchId = this.getProperty("dota_gamerules_data.m_unMatchID");
+        Integer matchId = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_unMatchID");
         return matchId != null ? (int) matchId : 0;
     }
 
     // Returns game mode
     public String getGameMode() {
-        Integer gameMode = this.getProperty("dota_gamerules_data.m_iGameMode");
+        Integer gameMode = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_iGameMode");
         if (gameMode != null && DotaGameInfoConstants.GAME_MODE.containsKey(gameMode)) {
             return DotaGameInfoConstants.GAME_MODE.get(gameMode);
         }
@@ -48,7 +30,7 @@ public class GameInfo {
 
     // Returns game winner
     public String getGameWinner() {
-        Integer winner = this.getProperty("dota_gamerules_data.m_nGameWinner");
+        Integer winner = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_nGameWinner");
         if (winner != null && DotaGameInfoConstants.GAME_WINNER.containsKey(winner)) {
             return DotaGameInfoConstants.GAME_WINNER.get(winner);
         }
@@ -57,12 +39,12 @@ public class GameInfo {
 
     // Returns array of Captain Index
     public Integer[] getCaptainIndex() {
-        return this.getArrayProperty(Integer.class, "dota_gamerules_data.m_iCaptainPlayerIDs");
+        return Utils.getArrayPropertyFromEntity(this.match.getGameRulesProxy(), Integer.class, "dota_gamerules_data.m_iCaptainPlayerIDs");
     }
 
     // Returns team that picked first
     public String getStartingTeamForDraft() {
-        Integer startingTeam = this.getProperty("dota_gamerules_data.m_iStartingTeam");
+        Integer startingTeam = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_iStartingTeam");
         if (startingTeam != null && DotaGameConstants.TEAM.containsKey(startingTeam)) {
             return DotaGameConstants.TEAM.get(startingTeam);
         }
@@ -71,7 +53,7 @@ public class GameInfo {
 
     // Returns current state of game
     public String getCurrentGameState() {
-        Integer gameState = this.getProperty("dota_gamerules_data.m_nGameState");
+        Integer gameState = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_nGameState");
         if (gameState != null && DotaGameInfoConstants.GAME_STATE.containsKey(gameState)) {
             return DotaGameInfoConstants.GAME_STATE.get(gameState);
         }
@@ -85,7 +67,7 @@ public class GameInfo {
 
     // Returns current pausing team
     public String getCurrentPausingTeam() {
-        Integer pausingTeam = this.getProperty("dota_gamerules_data.m_iPauseTeam");
+        Integer pausingTeam = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_iPauseTeam");
         if (pausingTeam != null && DotaGameConstants.TEAM.containsKey(pausingTeam)) {
             return DotaGameConstants.TEAM.get(pausingTeam);
         }
@@ -99,7 +81,7 @@ public class GameInfo {
 
     // Returns team currently banning or picking
     public String getCurrentActiveTeam() {
-        Integer activeTeam = this.getProperty("dota_gamerules_data.m_iActiveTeam");
+        Integer activeTeam = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_iActiveTeam");
         if (activeTeam != null && DotaGameConstants.TEAM.containsKey(activeTeam)) {
             return DotaGameConstants.TEAM.get(activeTeam);
         }
@@ -120,7 +102,7 @@ public class GameInfo {
 
     // Returns extra time for both teams
     public Float[] getCurrentExtraTime() {
-        return this.getArrayProperty(Float.class, "dota_gamerules_data.m_fExtraTimeRemaining");
+        return Utils.getArrayPropertyFromEntity(this.match.getGameRulesProxy(), Float.class, "dota_gamerules_data.m_fExtraTimeRemaining");
     }
 
     // Returns current bans for Radiant
@@ -137,7 +119,7 @@ public class GameInfo {
 
     // Returns bans for both teams
     public String[] getCurrentBans() {
-        Integer[] currentBansId = this.getArrayProperty(Integer.class, "dota_gamerules_data.m_BannedHeroes");
+        Integer[] currentBansId = Utils.getArrayPropertyFromEntity(this.match.getGameRulesProxy(), Integer.class, "dota_gamerules_data.m_BannedHeroes");
         if (currentBansId != null) {
             String[] currentBans = new String[currentBansId.length];
             for (int i = 0; i < currentBansId.length; i++) {
@@ -162,7 +144,7 @@ public class GameInfo {
 
     // Returns picks for both teams
     public String[] getCurrentPicks() {
-        Integer[] currentPicksId = this.getArrayProperty(Integer.class, "dota_gamerules_data.m_SelectedHeroes");
+        Integer[] currentPicksId = Utils.getArrayPropertyFromEntity(this.match.getGameRulesProxy(), Integer.class, "dota_gamerules_data.m_SelectedHeroes");
         if (currentPicksId != null) {
             String[] currentPicks = new String[currentPicksId.length];
             for (int i = 0; i < currentPicksId.length; i++) {
@@ -176,37 +158,37 @@ public class GameInfo {
     // TODO : This is not useable yet
     public int getPickState() {
         // Might want to look into dota_gamerules_data.m_iCDModePickBanOrder
-        Integer pickState = this.getProperty("dota_gamerules_data.m_iHeroPickState");
+        Integer pickState = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_iHeroPickState");
         return pickState != null ? pickState : 0;
     }
 
     // Returns time when game changed to loading
     public float getLoadTime() {
-        Float loadTime = this.getProperty("dota_gamerules_data.m_flGameLoadTime");
+        Float loadTime = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_flGameLoadTime");
         return loadTime != null ? (float) loadTime : 0.0f;
     }
 
     // Returns time when draft started
     public float getDraftStartTime() {
-        Float draftStartTime = this.getProperty("dota_gamerules_data.m_flHeroPickStateTransitionTime");
+        Float draftStartTime = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_flHeroPickStateTransitionTime");
         return draftStartTime != null ? (float) draftStartTime : 0.0f;
     }
 
     // Returns time when pregame started
     public float getPreGameStartTime() {
-        Float preGameStartTime = this.getProperty("dota_gamerules_data.m_flPreGameStartTime");
+        Float preGameStartTime = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_flPreGameStartTime");
         return preGameStartTime != null ? (float) preGameStartTime : 0.0f;
     }
 
     // Returns time when game started
     public float getGameStartTime() {
-        Float gameStartTime = this.getProperty("dota_gamerules_data.m_flGameStartTime");
+        Float gameStartTime = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_flGameStartTime");
         return gameStartTime != null ? (float) gameStartTime : 0.0f;
     }
 
     // Returns time when game ended
     public float getGameEndTime() {
-        Float gameEndTime = this.getProperty("dota_gamerules_data.m_flGameEndTime");
+        Float gameEndTime = Utils.getPropertyFromEntity(this.match.getGameRulesProxy(), "dota_gamerules_data.m_flGameEndTime");
         return gameEndTime != null ? (float) gameEndTime : 0.0f;
     }
 
