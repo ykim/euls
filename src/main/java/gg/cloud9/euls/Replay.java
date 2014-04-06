@@ -8,9 +8,9 @@ import skadistats.clarity.parser.Profile;
 import java.io.IOException;
 
 public class Replay {
-    private Match match;
-    private DemoInputStreamIterator iter;
-    private GameInfo game;
+    private final Match match;
+    private final DemoInputStreamIterator iter;
+    private final GameInfo game;
 
     public Replay(String fileName) throws IOException {
         this.match = new Match();
@@ -30,7 +30,7 @@ public class Replay {
     public int getTick() {
         return this.match.getTick();
     }
-    
+
     public GameInfo getGameInfo() {
         return this.game;
     }
