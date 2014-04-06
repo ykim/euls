@@ -14,15 +14,21 @@ public class Utils {
         return new Vector2f(xCoordinate, yCoordinate);
     }
 
-    @SuppressWarnings("unchecked")
+    @Deprecated
     public static <T> T getPropertyFromEntity(Entity e, String name) {
         if (e != null) {
-            return (T) e.getProperty(name);
+            return (T) e.<T>getProperty(name);
         }
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    public static <T> T getPropertyFromEntity(Entity e, Class<T> clazz, String name) {
+        if (e != null) {
+            return (T) e.<T>getProperty(name);
+        }
+        return null;
+    }
+
     public static <T> T[] getArrayPropertyFromEntity(Entity e, Class<T> clazz, String name) {
         if (e != null) {
             return e.getArrayProperty(clazz, name);
