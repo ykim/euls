@@ -14,14 +14,6 @@ public class Utils {
         return new Vector2f(xCoordinate, yCoordinate);
     }
 
-    @Deprecated
-    public static <T> T getPropertyFromEntity(Entity e, String name) {
-        if (e != null) {
-            return (T) e.<T>getProperty(name);
-        }
-        return null;
-    }
-
     public static <T> T getPropertyFromEntity(Entity e, Class<T> clazz, String name) {
         if (e != null) {
             return (T) e.<T>getProperty(name);
