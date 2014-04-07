@@ -7,6 +7,9 @@ import gg.cloud9.euls.annotations.DotAProperty;
  */
 public interface NPCHero extends NPC {
 
+    @DotAProperty(type = Integer.class, propertyName = "m_iPlayerID")
+    public Integer getPlayerId();
+
     @DotAProperty(type = Integer.class, propertyName = "m_iCurrentXP")
     public Integer getCurrentExp();
 

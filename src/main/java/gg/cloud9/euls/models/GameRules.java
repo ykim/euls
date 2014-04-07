@@ -15,6 +15,7 @@ import gg.cloud9.euls.models.transformers.gamerule.GameWinnerToEnum;
  * GameRules - Represents DT_DOTAGamerulesProxy
  */
 public interface GameRules {
+
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_unMatchID")
     public Integer getMatchId();
 
