@@ -1,4 +1,4 @@
-package gg.cloud9.euls.constants.gameinfo;
+package gg.cloud9.euls.constants.gamerule;
 
 import java.util.EnumSet;
 
@@ -36,7 +36,7 @@ public enum GameState {
 
     public static Optional<GameState> fromId(Integer id) {
         GameState state = reverseMap.get(id);
-        return Optional.of(state);
+        return Optional.fromNullable(state);
     }
 
     public static Optional<GameState> fromOptionalId(Optional<Integer> id) {

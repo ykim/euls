@@ -1,17 +1,21 @@
 package gg.cloud9.euls.models;
 
 import gg.cloud9.euls.annotations.DotAProperty;
+import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.models.transformers.LifeStateToEnum;
 
 import javax.vecmath.Vector2f;
 
+/**
+ * NPC - Represents DT_DOTA_BaseNPC
+ */
 public interface NPC extends Entity {
 
     @DotAProperty(type = Vector2f.class, propertyName = "m_vecOrigin")
     public Vector2f getVectorOrigin();
 
     @DotAProperty(type = Integer.class, propertyName = "m_lifeState", transformer = LifeStateToEnum.class)
-    public String getLifeState();
+    public LifeState getLifeState();
 
     @DotAProperty(type = Integer.class, propertyName = "m_iCurrentLevel")
     public Integer getCurrentLevel();

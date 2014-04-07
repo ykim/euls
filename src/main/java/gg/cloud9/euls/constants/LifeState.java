@@ -33,7 +33,7 @@ public enum LifeState {
 
     public static Optional<LifeState> fromId(Integer id) {
         LifeState value = reverseMap.get(id);
-        return Optional.of(value);
+        return Optional.fromNullable(value);
     }
 
     public static Optional<LifeState> fromOptionalId(Optional<Integer> id) {

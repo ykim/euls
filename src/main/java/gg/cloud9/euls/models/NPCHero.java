@@ -2,6 +2,9 @@ package gg.cloud9.euls.models;
 
 import gg.cloud9.euls.annotations.DotAProperty;
 
+/**
+ * NPCHero - Represents DT_DOTA_BaseNPC_Hero
+ */
 public interface NPCHero extends NPC {
 
     @DotAProperty(type = Integer.class, propertyName = "m_iCurrentXP")

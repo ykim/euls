@@ -11,9 +11,9 @@ import skadistats.clarity.model.Entity;
 
 public final class ModelProxyFactory {
 
-    static <T> T getProxy(Class<T> clazz, Entity entity) {
+    public static <T> T getProxy(Class<T> clazz, Entity entity) {
         ClassLoader loader = clazz.getClassLoader();
-        Class<?>[] interfaces = { clazz };
+        Class<?>[] interfaces = {clazz};
         InvocationHandler handler = new EntityHandler(entity);
 
         @SuppressWarnings("unchecked")
@@ -44,6 +44,18 @@ public final class ModelProxyFactory {
                             .transformer().newInstance();
                     return transformer.transform(propValue);
                 }
+                if (annotation instanceof DotAArrayProperty) {
+                    DotAArrayProperty prop = (DotAArrayProperty) annotation;
+                    Object[] propValue = valueOfArrayProperty(entity, prop.type(), prop.propertyName());
+                    if (prop.transformer() == DotAArrayProperty.NoTransformer.class) {
+                        return propValue;
+                    }
+
+                    @SuppressWarnings("unchecked")
+                    ValueTransformer<Object, Object> transformer = (ValueTransformer<Object, Object>) prop
+                            .transformer().newInstance();
+                    return transformer.transform(propValue);
+                }
             }
 
             return null;
@@ -56,7 +68,21 @@ public final class ModelProxyFactory {
             } else if (clazz == Integer.class) {
                 return (T) Utils.getPropertyFromEntity(entity, Integer.class, propertyName);
             } else if (clazz == Float.class) {
-                return (T) Utils.getPropertyFromEntity(entity, Integer.class, propertyName);
+                return (T) Utils.getPropertyFromEntity(entity, Float.class, propertyName);
+            } else {
+                throw new RuntimeException("This type is not supported yet");
+            }
+
+        }
+
+        @SuppressWarnings("unchecked")
+        private static <T> T[] valueOfArrayProperty(Entity entity, Class<T> clazz, String propertyName) {
+            if (clazz == String.class) {
+                return (T[]) Utils.getArrayPropertyFromEntity(entity, String.class, propertyName);
+            } else if (clazz == Integer.class) {
+                return (T[]) Utils.getArrayPropertyFromEntity(entity, Integer.class, propertyName);
+            } else if (clazz == Float.class) {
+                return (T[]) Utils.getArrayPropertyFromEntity(entity, Float.class, propertyName);
             } else {
                 throw new RuntimeException("This type is not supported yet");
             }

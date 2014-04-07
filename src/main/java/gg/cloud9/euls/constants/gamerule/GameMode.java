@@ -1,4 +1,4 @@
-package gg.cloud9.euls.constants.gameinfo;
+package gg.cloud9.euls.constants.gamerule;
 
 import java.util.EnumSet;
 
@@ -44,7 +44,7 @@ public enum GameMode {
 
     public static Optional<GameMode> fromId(Integer id) {
         GameMode value = reverseMap.get(id);
-        return Optional.of(value);
+        return Optional.fromNullable(value);
     }
 
     public static Optional<GameMode> fromOptionalId(Optional<Integer> id) {
