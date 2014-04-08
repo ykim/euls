@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.EnumSet;
 
-// TODO: TerrorBlade, Phoenix, Earth Spirit, Ember Spirit, and Abyssal Underlord
 public enum Hero {
     ANTIMAGE(1, "Anti-Mage", "AntiMage"),
     AXE(2, "Axe", "Axe"),
@@ -112,7 +111,9 @@ public enum Hero {
     LEGIONCOMMANDER(104, "Legion Commander", "Legion_Commander"),
     EMBERSPIRIT(106, "Ember Spirit", "EmberSpirit"),
     EARTHSPIRIT(107, "Earth Spirit", "EarthSpirit"),
-    ABYSSALUNDERLORD(108, "Abyssal Underlord", "AbyssalUnderlord");
+    ABYSSALUNDERLORD(108, "Abyssal Underlord", "AbyssalUnderlord"),
+    TERRORBLADE(109, "Terrorblade", "Terrorblade"),
+    PHOENIX(110, "Phoenix", "Phoenix");
 
     private final Integer id;
     private final String publicName;
@@ -137,6 +138,7 @@ public enum Hero {
     }
 
     private static final ImmutableMap<Integer, Hero> reverseMap;
+
     static {
         ImmutableMap.Builder<Integer, Hero> builder = ImmutableMap.builder();
         for (Hero value : EnumSet.allOf(Hero.class)) {
