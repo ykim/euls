@@ -9,4 +9,18 @@ public class GameStateToEnum implements ValueTransformer<Integer, GameState> {
     public GameState transform(Integer propValue) {
         return GameState.fromId(propValue).orNull();
     }
+
+    @Override
+    public GameState[] transformArray(Integer[] propArray) {
+        if (propArray != null) {
+            GameState[] propTransformArray = new GameState[propArray.length];
+
+            for (int i = 0; i < propArray.length; i++) {
+                propTransformArray[i] = GameState.fromId(propArray[i]).orNull();
+            }
+
+            return propTransformArray;
+        }
+        return null;
+    }
 }

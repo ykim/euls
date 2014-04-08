@@ -10,4 +10,18 @@ public class LifeStateToEnum implements ValueTransformer<Integer, LifeState> {
         return LifeState.fromId(propValue).orNull();
     }
 
+    @Override
+    public LifeState[] transformArray(Integer[] propArray) {
+        if (propArray != null) {
+            LifeState[] propTransformArray = new LifeState[propArray.length];
+
+            for (int i = 0; i < propArray.length; i++) {
+                propTransformArray[i] = LifeState.fromId(propArray[i]).orNull();
+            }
+
+            return propTransformArray;
+        }
+        return null;
+    }
+
 }

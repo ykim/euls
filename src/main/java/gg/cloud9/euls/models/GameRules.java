@@ -50,7 +50,7 @@ public interface GameRules {
     public Integer[] getCurrentPicksByHeroId();
 
     // TODO: Add in who is picking right now for what (i.e. picks and bans)
-    // Look at m_iHeroPickState or m_iCDModePickBanOrder
+    // Look at dota_gamerules_data.m_nHeroPickState or m_iCDModePickBanOrder
 
     @DotAProperty(type = Float.class, propertyName = "dota_gamerules_data.m_flGameLoadTime")
     public Float getLoadTime();

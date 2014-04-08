@@ -9,4 +9,18 @@ public class GameWinnerToEnum implements ValueTransformer<Integer, GameWinner> {
     public GameWinner transform(Integer propValue) {
         return GameWinner.fromId(propValue).orNull();
     }
+
+    @Override
+    public GameWinner[] transformArray(Integer[] propArray) {
+        if (propArray != null) {
+            GameWinner[] propTransformArray = new GameWinner[propArray.length];
+
+            for (int i = 0; i < propArray.length; i++) {
+                propTransformArray[i] = GameWinner.fromId(propArray[i]).orNull();
+            }
+
+            return propTransformArray;
+        }
+        return null;
+    }
 }

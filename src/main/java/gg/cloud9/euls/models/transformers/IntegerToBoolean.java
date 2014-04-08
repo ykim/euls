@@ -16,4 +16,24 @@ public class IntegerToBoolean implements ValueTransformer<Integer, Boolean> {
         return null;
     }
 
+    @Override
+    public Boolean[] transformArray(Integer[] propArray) {
+        if (propArray != null) {
+            Boolean[] propTransformArray = new Boolean[propArray.length];
+
+            for (int i = 0; i < propArray.length; i++) {
+                if (propArray[i] != null) {
+                    if (propArray[i] == 0) {
+                        propTransformArray[i] = Boolean.FALSE;
+                    } else {
+                        propTransformArray[i] = Boolean.TRUE;
+                    }
+                }
+            }
+
+            return propTransformArray;
+        }
+        return null;
+    }
+
 }

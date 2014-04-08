@@ -3,6 +3,8 @@ package gg.cloud9.euls.models;
 import gg.cloud9.euls.annotations.DotAArrayProperty;
 import gg.cloud9.euls.annotations.DotAProperty;
 import gg.cloud9.euls.constants.LifeState;
+import gg.cloud9.euls.constants.Item;
+import gg.cloud9.euls.models.transformers.ItemToEnum;
 import gg.cloud9.euls.models.transformers.LifeStateToEnum;
 
 import javax.vecmath.Vector2f;
@@ -24,8 +26,8 @@ public interface NPC extends Entity {
     @DotAProperty(type = Vector2f.class, propertyName = "m_iNightTimeVisionRange")
     public Integer getNightVision();
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_Inventory.m_hItems")
-    public Integer[] getCurrentItems();
+    @DotAArrayProperty(type = Integer.class, propertyName = "m_Inventory.m_hItems", transformer = ItemToEnum.class)
+    public Item[] getCurrentItems();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_hAbilities")
     public Integer[] getAbilities();

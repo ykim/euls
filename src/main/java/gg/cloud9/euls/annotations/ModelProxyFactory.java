@@ -46,19 +46,15 @@ public final class ModelProxyFactory {
                 }
                 if (annotation instanceof DotAArrayProperty) {
                     DotAArrayProperty prop = (DotAArrayProperty) annotation;
-                    Object[] propValue = valueOfArrayProperty(entity, prop.type(), prop.propertyName());
+                    Object[] propArray = valueOfArrayProperty(entity, prop.type(), prop.propertyName());
                     if (prop.transformer() == DotAArrayProperty.NoTransformer.class) {
-                        return propValue;
+                        return propArray;
                     }
 
                     @SuppressWarnings("unchecked")
                     ValueTransformer<Object, Object> transformer = (ValueTransformer<Object, Object>) prop
                             .transformer().newInstance();
-                    Object[] transformPropValue = new Object[propValue.length];
-                    for (int i = 0; i < propValue.length; i++) {
-                        transformPropValue[i] = transformer.transform(propValue[i]);
-                    }
-                    return transformPropValue;
+                    return transformer.transformArray(propArray);
                 }
             }
 
