@@ -54,7 +54,11 @@ public final class ModelProxyFactory {
                     @SuppressWarnings("unchecked")
                     ValueTransformer<Object, Object> transformer = (ValueTransformer<Object, Object>) prop
                             .transformer().newInstance();
-                    return transformer.transform(propValue);
+                    Object[] transformPropValue = new Object[propValue.length];
+                    for (int i = 0; i < propValue.length; i++) {
+                        transformPropValue[i] = transformer.transform(propValue[i]);
+                    }
+                    return transformPropValue;
                 }
             }
 
