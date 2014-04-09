@@ -1,4 +1,4 @@
-package gg.cloud9.euls.models;
+package gg.cloud9.euls.models.protobuf;
 
 import gg.cloud9.euls.annotations.DotAProperty;
 
