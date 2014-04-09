@@ -11,5 +11,5 @@ public interface Player extends Entity {
     public Integer getPlayerId();
 
     @DotAProperty(type = Integer.class, propertyName = "m_hAssignedHero")
-    public Integer getHeroId();
+    public Integer getHeroHandle();
 }

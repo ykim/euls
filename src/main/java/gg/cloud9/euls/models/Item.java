@@ -15,7 +15,7 @@ public interface Item extends Ability {
     public Float getAssembledTime();
 
     @DotAProperty(type = Integer.class, propertyName = "m_hPurchaser")
-    public Integer getPurchaser();
+    public Integer getPurchaserHandle();
 
     @DotAProperty(type = Integer.class, propertyName = "m_bCombinable", transformer = IntegerToBoolean.class)
     public Boolean isCombinable();
