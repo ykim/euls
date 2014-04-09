@@ -29,7 +29,7 @@ public interface PlayerResource {
     public Integer[] getRadiantCurrentUnreliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_nSelectedHeroID", transformer = HeroToEnum.class)
-    public Hero[] getSelectedHeroIds();
+    public Hero[] getSelectedHero();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iAssists")
     public Integer[] getCurrentTotalAssists();

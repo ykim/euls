@@ -69,6 +69,8 @@ public final class ModelProxyFactory {
                 return (T) Utils.getPropertyFromEntity(entity, Integer.class, propertyName);
             } else if (clazz == Float.class) {
                 return (T) Utils.getPropertyFromEntity(entity, Float.class, propertyName);
+            } else if (clazz == Long.class) {
+                return (T) Utils.getPropertyFromEntity(entity, Long.class, propertyName);
             } else {
                 throw new RuntimeException("This type is not supported yet");
             }
@@ -83,6 +85,8 @@ public final class ModelProxyFactory {
                 return (T[]) Utils.getArrayPropertyFromEntity(entity, Integer.class, propertyName);
             } else if (clazz == Float.class) {
                 return (T[]) Utils.getArrayPropertyFromEntity(entity, Float.class, propertyName);
+            } else if (clazz == Long.class) {
+                return (T[]) Utils.getArrayPropertyFromEntity(entity, Long.class, propertyName);
             } else {
                 throw new RuntimeException("This type is not supported yet");
             }
