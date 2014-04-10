@@ -4,6 +4,7 @@ import gg.cloud9.euls.Utils;
 import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.Hero;
 import gg.cloud9.euls.constants.Team;
+import gg.cloud9.euls.models.protobuf.NonSpectator;
 import gg.cloud9.euls.models.protobuf.PlayerResource;
 import skadistats.clarity.match.Match;
 import skadistats.clarity.model.Entity;
@@ -17,6 +18,8 @@ public class DotaPlayer {
 
     // Internal cache
     private PlayerResource playerResource;
+    private NonSpectator direData;
+    private NonSpectator radiantData;
 
     public DotaPlayer(Match match, Integer index) {
         this.match = match;
@@ -28,6 +31,14 @@ public class DotaPlayer {
         Entity playerResource = this.match.getPlayerResource();
         if (playerResource != null) {
             this.playerResource = ModelProxyFactory.getProxy(PlayerResource.class, playerResource);
+        }
+        Entity direData = this.match.getEntities().getByDtName("DT_DOTA_DataDire");
+        if (direData != null) {
+            this.direData = ModelProxyFactory.getProxy(NonSpectator.class, direData);
+        }
+        Entity radiantData = this.match.getEntities().getByDtName("DT_DOTA_DataRadiant");
+        if (radiantData != null) {
+            this.radiantData = ModelProxyFactory.getProxy(NonSpectator.class, radiantData);
         }
     }
 
@@ -144,18 +155,15 @@ public class DotaPlayer {
         return null;
     }
 
-    // TODO: This does not work as intended
     public Integer getCurrentReliableGold() {
         Team team = getTeam();
-        if (team != null) {
+        if (team != null && radiantData != null && direData != null) {
             Integer[] gold = null;
-
-            if (team == Team.DIRE) {
-                gold = playerResource.getDireCurrentReliableGold();
-
+            if (team == team.RADIANT) {
+                gold = radiantData.getCurrentReliableGold();
             }
-            if (team == Team.RADIANT) {
-                gold = playerResource.getRadiantCurrentReliableGold();
+            if (team == team.DIRE) {
+                gold = direData.getCurrentReliableGold();
             }
             if (gold != null && gold.length > playerIndex) {
                 return gold[playerIndex];
@@ -164,18 +172,15 @@ public class DotaPlayer {
         return null;
     }
 
-    // TODO: This does not work as intended
     public Integer getCurrentUnreliableGold() {
         Team team = getTeam();
-        if (team != null) {
+        if (team != null && radiantData != null && direData != null) {
             Integer[] gold = null;
-
-            if (team == Team.DIRE) {
-                gold = playerResource.getDireCurrentUnreliableGold();
-
+            if (team == team.RADIANT) {
+                gold = radiantData.getCurrentUnreliableGold();
             }
-            if (team == Team.RADIANT) {
-                gold = playerResource.getRadiantCurrentUnreliableGold();
+            if (team == team.DIRE) {
+                gold = direData.getCurrentUnreliableGold();
             }
             if (gold != null && gold.length > playerIndex) {
                 return gold[playerIndex];

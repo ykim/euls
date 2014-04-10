@@ -22,10 +22,10 @@ public interface PlayerResource {
     @DotAArrayProperty(type = Integer.class, propertyName = "DireOnlyData.m_iUnreliableGoldDire")
     public Integer[] getDireCurrentUnreliableGold();
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iReliableGoldDire")
+    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iReliableGoldRadiant")
     public Integer[] getRadiantCurrentReliableGold();
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iUnreliableGoldDire")
+    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iUnreliableGoldRadiant")
     public Integer[] getRadiantCurrentUnreliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_nSelectedHeroID", transformer = HeroToEnum.class)
