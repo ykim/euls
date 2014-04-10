@@ -81,17 +81,28 @@ public class DotaPlayer {
         return null;
     }
 
-    // TODO: Clean this function up
-    public Entity[] getItems() {
+    // TODO: Return Item constants
+
+    public DotaItem[] getItemProperty() {
         DotaHero hero = getHeroProperty();
         if (hero != null) {
             Integer[] itemHandles = hero.getCurrentItemHandles();
 
             if (itemHandles != null) {
-                return Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
+                Entity[] itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
+                DotaItem[] items = new DotaItem[itemEntities.length];
+
+                for (int i = 0; i < itemEntities.length; i++) {
+                    if (itemEntities[i] != null) {
+                        items[i] = ModelProxyFactory.getProxy(DotaItem.class, itemEntities[i]);
+                    } else {
+                        items[i] = null;
+                    }
+                }
+
+                return items;
             }
         }
-
         return null;
     }
 
