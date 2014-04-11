@@ -9,6 +9,8 @@ import java.lang.reflect.Proxy;
 
 import skadistats.clarity.model.Entity;
 
+import javax.vecmath.Vector2f;
+
 public final class ModelProxyFactory {
 
     public static <T> T getProxy(Class<T> clazz, Entity entity) {
@@ -71,6 +73,8 @@ public final class ModelProxyFactory {
                 return (T) Utils.getPropertyFromEntity(entity, Float.class, propertyName);
             } else if (clazz == Long.class) {
                 return (T) Utils.getPropertyFromEntity(entity, Long.class, propertyName);
+            } else if (clazz == Vector2f.class) {
+                return (T) Utils.getPropertyFromEntity(entity, Vector2f.class, propertyName);
             } else {
                 throw new RuntimeException("This type is not supported yet");
             }
