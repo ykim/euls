@@ -3,10 +3,11 @@ package gg.cloud9.euls;
 import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.models.DotaPlayer;
 import gg.cloud9.euls.models.protobuf.GameRules;
-import gg.cloud9.euls.models.protobuf.NPCHero;
 
 import skadistats.clarity.Clarity;
+import skadistats.clarity.match.GameEventCollection;
 import skadistats.clarity.match.Match;
+import skadistats.clarity.model.GameEvent;
 import skadistats.clarity.parser.DemoInputStreamIterator;
 import skadistats.clarity.parser.Peek;
 import skadistats.clarity.parser.Profile;
@@ -20,6 +21,7 @@ public class Replay {
     private Match match;
     private DemoInputStreamIterator iter;
     private ArrayList<DotaPlayer> players = new ArrayList<DotaPlayer>();
+    private GameEventCollection gameEvents = new GameEventCollection();
     private int currentTick;
     private Peek nextPeek;
     private Boolean complete;
@@ -48,9 +50,17 @@ public class Replay {
                 }
             }
 
+            // Clear up GameEvents
+            gameEvents.clear();
+
             // Iterate over Peeks until next tick is hit
             while (this.iter.hasNext() && nextPeek.getTick() == currentTick) {
                 nextPeek.apply(this.match);
+                // Collect game events
+                for (GameEvent event : this.match.getGameEvents()) {
+                    gameEvents.add(event);
+                }
+                // Update DotaPlayer
                 for (DotaPlayer player : players) {
                     player.tick();
                 }
@@ -62,6 +72,9 @@ public class Replay {
                 return Boolean.TRUE;
             } else {
                 nextPeek.apply(this.match);
+                for (GameEvent event : this.match.getGameEvents()) {
+                    gameEvents.add(event);
+                }
                 for (DotaPlayer player : players) {
                     player.tick();
                 }
@@ -90,5 +103,9 @@ public class Replay {
 
     public DotaPlayer getDotaPlayerByIndex(Integer i) {
         return players.get(i);
+    }
+
+    public GameEventCollection getGameEvents() {
+        return gameEvents;
     }
 }
