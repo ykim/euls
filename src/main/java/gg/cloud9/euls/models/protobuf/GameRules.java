@@ -4,10 +4,12 @@ import gg.cloud9.euls.annotations.DotAArrayProperty;
 import gg.cloud9.euls.annotations.DotAProperty;
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.constants.gamerule.GameMode;
+import gg.cloud9.euls.constants.gamerule.GamePickState;
 import gg.cloud9.euls.constants.gamerule.GameState;
 import gg.cloud9.euls.constants.gamerule.GameWinner;
 import gg.cloud9.euls.models.transformers.TeamToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameModeToEnum;
+import gg.cloud9.euls.models.transformers.gamerule.GamePickStateToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameStateToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameWinnerToEnum;
 
@@ -49,8 +51,8 @@ public interface GameRules {
     @DotAArrayProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_SelectedHeroes")
     public Integer[] getCurrentPicksByHeroId();
 
-    // TODO: Add in who is picking right now for what (i.e. picks and bans)
-    // Look at dota_gamerules_data.m_nHeroPickState or m_iCDModePickBanOrder
+    @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_nHeroPickState", transformer = GamePickStateToEnum.class)
+    public GamePickState getGamePickState();
 
     @DotAProperty(type = Float.class, propertyName = "dota_gamerules_data.m_flGameLoadTime")
     public Float getLoadTime();
