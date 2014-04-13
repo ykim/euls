@@ -85,6 +85,24 @@ public class Replay {
         return Boolean.FALSE;
     }
 
+    // Note : Do not use if you do not know what this does
+    public Boolean stick() {
+        // Clear up GameEvents
+        gameEvents.clear();
+
+        if (this.iter.hasNext()) {
+            this.iter.next().apply(this.match);
+            for (GameEvent event : this.match.getGameEvents()) {
+                gameEvents.add(event);
+            }
+            for (DotaPlayer player : players) {
+                player.tick();
+            }
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
     public Integer getTick() {
         return this.match.getTick();
     }
