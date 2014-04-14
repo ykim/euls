@@ -1,12 +1,16 @@
 package gg.cloud9.euls;
 
 import gg.cloud9.euls.annotations.ModelProxyFactory;
+import gg.cloud9.euls.constants.Team;
+import gg.cloud9.euls.models.DotaCourier;
 import gg.cloud9.euls.models.DotaPlayer;
+import gg.cloud9.euls.models.protobuf.Courier;
 import gg.cloud9.euls.models.protobuf.GameRules;
 
 import skadistats.clarity.Clarity;
 import skadistats.clarity.match.GameEventCollection;
 import skadistats.clarity.match.Match;
+import skadistats.clarity.model.Entity;
 import skadistats.clarity.model.GameEvent;
 import skadistats.clarity.parser.DemoInputStreamIterator;
 import skadistats.clarity.parser.Peek;
@@ -14,6 +18,7 @@ import skadistats.clarity.parser.Profile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Replay {
     private static final Integer MAX_PLAYERS = 10;
@@ -121,6 +126,29 @@ public class Replay {
 
     public DotaPlayer getDotaPlayerByIndex(Integer i) {
         return players.get(i);
+    }
+
+    public ArrayList<Courier> getCouriersByTeam(Team team) {
+        ArrayList<Courier> couriers = new ArrayList<Courier>();
+
+        Iterator<Entity> courierIterator = this.match.getEntities().getAllByDtName("DT_DOTA_Unit_Courier");
+
+        while (courierIterator.hasNext()) {
+            Entity courierEntity = courierIterator.next();
+            if (courierEntity != null) {
+                Courier courier = ModelProxyFactory.getProxy(Courier.class, courierEntity);
+
+                if (courier != null) {
+                    Team courierTeam = courier.getTeam();
+
+                    if (courierTeam == team) {
+                        couriers.add(courier);
+                    }
+                }
+            }
+        }
+
+        return couriers;
     }
 
     public GameEventCollection getGameEvents() {

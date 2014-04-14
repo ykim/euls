@@ -10,7 +10,7 @@ import gg.cloud9.euls.models.transformers.TeamToEnum;
 public interface Entity {
 
     @DotAProperty(type = Integer.class, propertyName = "m_iTeamNum", transformer = TeamToEnum.class)
-    Team getTeamId();
+    Team getTeam();
 
     @DotAProperty(type = String.class, propertyName = "m_iName")
     String getName();
