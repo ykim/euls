@@ -185,25 +185,15 @@ public class Replay {
         return towers;
     }
 
-    public ArrayList<DotaLaneCreep> getLaneCreepsByTeam(Team team) {
+    public List<DotaLaneCreep> getLaneCreepsByTeam(Team team) {
         ArrayList<DotaLaneCreep> laneCreeps = new ArrayList<DotaLaneCreep>();
 
         Iterator<Entity> creepIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Creep_Lane");
+        List<Entity> creepsEntity = Utils.getEntitiesByTeam(creepIterator, team);
 
-        while (creepIterator.hasNext()) {
-            Entity creepEntity = creepIterator.next();
-
-            if (creepEntity != null) {
-                DotaLaneCreep creep = new DotaLaneCreep(creepEntity);
-
-                if (creep != null) {
-                    Team creepTeam = creep.getTeam();
-
-                    if (creepTeam == team && creep.getLifeState() == LifeState.ALIVE) {
-                        laneCreeps.add(creep);
-                    }
-                }
-            }
+        for (Entity entity : creepsEntity) {
+            DotaLaneCreep creep = new DotaLaneCreep(entity);
+            laneCreeps.add(creep);
         }
 
         return laneCreeps;
