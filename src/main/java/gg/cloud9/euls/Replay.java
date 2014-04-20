@@ -3,10 +3,7 @@ package gg.cloud9.euls;
 import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.constants.Team;
-import gg.cloud9.euls.models.DotaBuilding;
-import gg.cloud9.euls.models.DotaCourier;
-import gg.cloud9.euls.models.DotaLaneCreep;
-import gg.cloud9.euls.models.DotaPlayer;
+import gg.cloud9.euls.models.*;
 import gg.cloud9.euls.models.protobuf.GameRules;
 
 import skadistats.clarity.Clarity;
@@ -14,6 +11,7 @@ import skadistats.clarity.match.GameEventCollection;
 import skadistats.clarity.match.Match;
 import skadistats.clarity.model.Entity;
 import skadistats.clarity.model.GameEvent;
+import skadistats.clarity.model.StringTable;
 import skadistats.clarity.parser.DemoInputStreamIterator;
 import skadistats.clarity.parser.Peek;
 import skadistats.clarity.parser.Profile;
@@ -28,6 +26,7 @@ public class Replay {
 
     private Match match;
     private DemoInputStreamIterator iter;
+    public StringTable models;
     private ArrayList<DotaPlayer> players = new ArrayList<DotaPlayer>();
     private GameEventCollection gameEvents = new GameEventCollection();
     private int currentTick;
@@ -72,6 +71,9 @@ public class Replay {
                 for (DotaPlayer player : players) {
                     player.tick();
                 }
+                // Update StringTable
+                this.models = this.match.getStringTables().forName("modelprecache");
+
                 nextPeek = this.iter.next();
             }
             currentTick = nextPeek.getTick();
@@ -193,7 +195,29 @@ public class Replay {
 
         for (Entity entity : creepsEntity) {
             DotaLaneCreep creep = new DotaLaneCreep(entity);
-            laneCreeps.add(creep);
+            if (creep.getLifeState() == LifeState.ALIVE) {
+                laneCreeps.add(creep);
+            }
+        }
+
+        return laneCreeps;
+    }
+
+    public List<DotaNeutralCreep> getNeutralCreeps() {
+        ArrayList<DotaNeutralCreep> laneCreeps = new ArrayList<DotaNeutralCreep>();
+
+        Iterator<Entity> creepIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Creep_Neutral");
+
+        while (creepIterator.hasNext()) {
+            Entity neutralEntity = creepIterator.next();
+
+            if (neutralEntity != null) {
+                DotaNeutralCreep neutralCreep = new DotaNeutralCreep(neutralEntity, models);
+
+                if (neutralCreep.getLifeState() == LifeState.ALIVE) {
+                    laneCreeps.add(neutralCreep);
+                }
+            }
         }
 
         return laneCreeps;

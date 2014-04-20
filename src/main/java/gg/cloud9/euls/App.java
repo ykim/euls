@@ -12,6 +12,7 @@ import skadistats.clarity.model.GameEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     Logger logger = LoggerFactory.getLogger(App.class);
@@ -24,6 +25,7 @@ public class App {
         try {
             Replay matchReplay = new Replay(args[0]);
 
+            Long start_time = System.currentTimeMillis();
             while (matchReplay.tick()) {
 //                System.out.println(matchReplay.getReplayTimeAsString());
 //                for (int i = 0; i < 10; i++) {
@@ -94,7 +96,20 @@ public class App {
 //                        System.out.println(Utils.cellToCoordinates(courier.getXCoordinate(), courier.getYCoordinate(), courier.getVectorOrigin(), courier.getCellBits()));
 //                    }
 //                }
+
+//                System.out.println(matchReplay.getReplayTimeAsString());
+//                List<DotaNeutralCreep> couriers = matchReplay.getNeutralCreeps();
+//                for (DotaNeutralCreep courier : couriers) {
+//                    if (courier != null) {
+//                        System.out.println(courier.getName());
+//                        System.out.println(Utils.cellToCoordinates(courier.getXCoordinate(), courier.getYCoordinate(), courier.getVectorOrigin(), courier.getCellBits()));
+//                        System.out.println(courier.getCurrentHP());
+//                    }
+//                }
             }
+
+            Long end_time = System.currentTimeMillis();
+            System.out.println((end_time - start_time));
         } catch (IOException e) {
             logger.error(args[0] + " could not be opened");
         }

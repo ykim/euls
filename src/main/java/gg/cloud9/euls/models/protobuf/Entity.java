@@ -15,6 +15,9 @@ public interface Entity {
     @DotAProperty(type = String.class, propertyName = "m_iName")
     public String getName();
 
+    @DotAProperty(type = Integer.class, propertyName = "m_nModelIndex")
+    public Integer getModelIndex();
+
     @DotAProperty(type = Integer.class, propertyName = "m_cellX")
     public Integer getXCoordinate();
 
