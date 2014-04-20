@@ -1,11 +1,11 @@
 package gg.cloud9.euls.annotations;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ValueTransformer<FromType, ToType> {
 
     ToType transform(FromType propValue);
 
-    ArrayList<ToType> transformArray(ArrayList<FromType> propArray);
+    List<ToType> transformArray(List<FromType> propArray);
 
 }

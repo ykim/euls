@@ -8,6 +8,7 @@ import skadistats.clarity.model.Entity;
 import javax.vecmath.Vector2f;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Utils {
     public static final Integer MAX_COORDINATE = 16384;
@@ -20,7 +21,7 @@ public class Utils {
         return new Vector2f(xCoordinate, yCoordinate);
     }
 
-    public static ArrayList<Entity> getEntityFromHandles(ArrayList<Integer> handles, EntityCollection e) {
+    public static List<Entity> getEntityFromHandles(List<Integer> handles, EntityCollection e) {
         ArrayList<Entity> entities = new ArrayList<Entity>();
 
         if (handles != null) {
@@ -38,7 +39,7 @@ public class Utils {
         return entities;
     }
 
-    public static ArrayList<Entity> getEntitiesByTeam(Iterator<Entity> iter, Team team) {
+    public static List<Entity> getEntitiesByTeam(Iterator<Entity> iter, Team team) {
         ArrayList<Entity> entitiesByTeam = new ArrayList<Entity>();
 
         while (iter.hasNext()) {

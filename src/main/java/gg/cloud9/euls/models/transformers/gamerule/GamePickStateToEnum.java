@@ -4,6 +4,7 @@ import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.gamerule.GamePickState;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GamePickStateToEnum implements ValueTransformer<Integer, GamePickState> {
 
@@ -13,7 +14,7 @@ public class GamePickStateToEnum implements ValueTransformer<Integer, GamePickSt
     }
 
     @Override
-    public ArrayList<GamePickState> transformArray(ArrayList<Integer> propArray) {
+    public List<GamePickState> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<GamePickState> propTransformArray = new ArrayList<GamePickState>();
 

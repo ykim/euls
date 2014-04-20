@@ -4,6 +4,7 @@ import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.gamerule.GameWinner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameWinnerToEnum implements ValueTransformer<Integer, GameWinner> {
 
@@ -13,7 +14,7 @@ public class GameWinnerToEnum implements ValueTransformer<Integer, GameWinner> {
     }
 
     @Override
-    public ArrayList<GameWinner> transformArray(ArrayList<Integer> propArray) {
+    public List<GameWinner> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<GameWinner> propTransformArray = new ArrayList<GameWinner>();
 

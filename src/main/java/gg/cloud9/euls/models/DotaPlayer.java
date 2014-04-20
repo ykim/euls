@@ -10,6 +10,7 @@ import skadistats.clarity.match.Match;
 import skadistats.clarity.model.Entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DotaPlayer - Model to access objects for a Player
@@ -46,7 +47,7 @@ public class DotaPlayer {
 
     public Long getSteamId() {
         if (playerResource != null) {
-            ArrayList<Long> steamIds = playerResource.getSteamIds();
+            List<Long> steamIds = playerResource.getSteamIds();
             if (steamIds != null && steamIds.size() > playerIndex) {
                 return steamIds.get(playerIndex);
             }
@@ -56,7 +57,7 @@ public class DotaPlayer {
 
     public Team getTeam() {
         if (playerResource != null) {
-            ArrayList<Team> teams = playerResource.getTeams();
+            List<Team> teams = playerResource.getTeams();
             if (teams != null && teams.size() > playerIndex) {
                 return teams.get(playerIndex);
             }
@@ -66,7 +67,7 @@ public class DotaPlayer {
 
     public Hero getHero() {
         if (playerResource != null) {
-            ArrayList<Hero> heros = playerResource.getSelectedHero();
+            List<Hero> heros = playerResource.getSelectedHero();
             if (heros != null && heros.size() > playerIndex) {
                 return heros.get(playerIndex);
             }
@@ -85,13 +86,13 @@ public class DotaPlayer {
 
     // TODO: Return Item constants
 
-    public ArrayList<DotaItem> getItemProperty() {
+    public List<DotaItem> getItemProperty() {
         ArrayList<DotaItem> items = new ArrayList<DotaItem>();
 
         DotaHero hero = getHeroProperty();
         if (hero != null) {
-            ArrayList<Integer> itemHandles = hero.getCurrentItemHandles();
-            ArrayList<Entity> itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
+            List<Integer> itemHandles = hero.getCurrentItemHandles();
+            List<Entity> itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
 
             for (Entity itemEntity : itemEntities) {
                 if (itemEntity != null) {
@@ -107,7 +108,7 @@ public class DotaPlayer {
 
     public Integer getCurrentTotalAssists() {
         if (playerResource != null) {
-            ArrayList<Integer> currentTotalAssists = playerResource.getCurrentTotalAssists();
+            List<Integer> currentTotalAssists = playerResource.getCurrentTotalAssists();
             if (currentTotalAssists != null && currentTotalAssists.size() > playerIndex) {
                 return currentTotalAssists.get(playerIndex);
             }
@@ -117,7 +118,7 @@ public class DotaPlayer {
 
     public Integer getCurrentTotalDeaths() {
         if (playerResource != null) {
-            ArrayList<Integer> currentTotalDeaths = playerResource.getCurrentTotalDeaths();
+            List<Integer> currentTotalDeaths = playerResource.getCurrentTotalDeaths();
             if (currentTotalDeaths != null && currentTotalDeaths.size() > playerIndex) {
                 return currentTotalDeaths.get(playerIndex);
             }
@@ -127,7 +128,7 @@ public class DotaPlayer {
 
     public Integer getCurrentDenies() {
         if (playerResource != null) {
-            ArrayList<Integer> currentDenies = playerResource.getCurrentDenies();
+            List<Integer> currentDenies = playerResource.getCurrentDenies();
             if (currentDenies != null && currentDenies.size() > playerIndex) {
                 return currentDenies.get(playerIndex);
             }
@@ -137,7 +138,7 @@ public class DotaPlayer {
 
     public Integer getCurrentTotalKills() {
         if (playerResource != null) {
-            ArrayList<Integer> currentKills = playerResource.getCurrentTotalKills();
+            List<Integer> currentKills = playerResource.getCurrentTotalKills();
             if (currentKills != null && currentKills.size() > playerIndex) {
                 return currentKills.get(playerIndex);
             }
@@ -147,7 +148,7 @@ public class DotaPlayer {
 
     public Integer getCurrentLastHits() {
         if (playerResource != null) {
-            ArrayList<Integer> currentLastHits = playerResource.getCurrentLastHits();
+            List<Integer> currentLastHits = playerResource.getCurrentLastHits();
             if (currentLastHits != null && currentLastHits.size() > playerIndex) {
                 return currentLastHits.get(playerIndex);
             }
@@ -157,7 +158,7 @@ public class DotaPlayer {
 
     public Integer getCurrentLevel() {
         if (playerResource != null) {
-            ArrayList<Integer> currentLevels = playerResource.getCurrentLevels();
+            List<Integer> currentLevels = playerResource.getCurrentLevels();
             if (currentLevels != null && currentLevels.size() > playerIndex) {
                 return currentLevels.get(playerIndex);
             }
@@ -168,7 +169,7 @@ public class DotaPlayer {
     public Integer getCurrentReliableGold() {
         Team team = getTeam();
         if (team != null && radiantData != null && direData != null) {
-            ArrayList<Integer> gold = null;
+            List<Integer> gold = null;
             if (team == team.RADIANT) {
                 gold = radiantData.getCurrentReliableGold();
             }
@@ -185,7 +186,7 @@ public class DotaPlayer {
     public Integer getCurrentUnreliableGold() {
         Team team = getTeam();
         if (team != null && radiantData != null && direData != null) {
-            ArrayList<Integer> gold = null;
+            List<Integer> gold = null;
             if (team == team.RADIANT) {
                 gold = radiantData.getCurrentUnreliableGold();
             }

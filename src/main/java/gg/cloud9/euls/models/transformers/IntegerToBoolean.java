@@ -3,6 +3,7 @@ package gg.cloud9.euls.models.transformers;
 import gg.cloud9.euls.annotations.ValueTransformer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IntegerToBoolean implements ValueTransformer<Integer, Boolean> {
 
@@ -19,7 +20,7 @@ public class IntegerToBoolean implements ValueTransformer<Integer, Boolean> {
     }
 
     @Override
-    public ArrayList<Boolean> transformArray(ArrayList<Integer> propArray) {
+    public List<Boolean> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<Boolean> propTransformArray = new ArrayList<Boolean>();
 

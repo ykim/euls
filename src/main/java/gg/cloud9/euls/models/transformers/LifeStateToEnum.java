@@ -4,6 +4,7 @@ import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.LifeState;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LifeStateToEnum implements ValueTransformer<Integer, LifeState> {
 
@@ -13,7 +14,7 @@ public class LifeStateToEnum implements ValueTransformer<Integer, LifeState> {
     }
 
     @Override
-    public ArrayList<LifeState> transformArray(ArrayList<Integer> propArray) {
+    public List<LifeState> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<LifeState> propTransformArray = new ArrayList<LifeState>();
 

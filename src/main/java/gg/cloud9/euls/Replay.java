@@ -19,6 +19,7 @@ import skadistats.clarity.parser.Profile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Replay {
     private static final Integer MAX_PLAYERS = 10;
@@ -128,11 +129,11 @@ public class Replay {
         return players.get(i);
     }
 
-    public ArrayList<DotaCourier> getCouriersByTeam(Team team) {
+    public List<DotaCourier> getCouriersByTeam(Team team) {
         ArrayList<DotaCourier> couriers = new ArrayList<DotaCourier>();
 
         Iterator<Entity> courierIterator = this.match.getEntities().getAllByDtName("DT_DOTA_Unit_Courier");
-        ArrayList<Entity> courierEntity = Utils.getEntitiesByTeam(courierIterator, team);
+        List<Entity> courierEntity = Utils.getEntitiesByTeam(courierIterator, team);
 
         for (Entity entity : courierEntity) {
             DotaCourier courier = ModelProxyFactory.getProxy(DotaCourier.class, entity);
@@ -144,7 +145,7 @@ public class Replay {
 
     public DotaBuilding getAncientByTeam(Team team) {
         Iterator<Entity> ancientIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Fort");
-        ArrayList<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
+        List<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
 
         for (Entity entity : ancientEntity) {
             DotaBuilding ancient = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
@@ -154,11 +155,11 @@ public class Replay {
         return null;
     }
 
-    public ArrayList<DotaBuilding> getBarracksByTeam(Team team) {
+    public List<DotaBuilding> getBarracksByTeam(Team team) {
         ArrayList<DotaBuilding> barracks = new ArrayList<DotaBuilding>();
 
         Iterator<Entity> barracksIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Barracks");
-        ArrayList<Entity> barracksEntity = Utils.getEntitiesByTeam(barracksIterator, team);
+        List<Entity> barracksEntity = Utils.getEntitiesByTeam(barracksIterator, team);
 
         for (Entity entity : barracksEntity) {
             DotaBuilding barrack = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
@@ -168,11 +169,11 @@ public class Replay {
         return barracks;
     }
 
-    public ArrayList<DotaBuilding> getTowersByTeam(Team team) {
+    public List<DotaBuilding> getTowersByTeam(Team team) {
         ArrayList<DotaBuilding> towers = new ArrayList<DotaBuilding>();
 
         Iterator<Entity> towersIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Tower");
-        ArrayList<Entity> towersEntity = Utils.getEntitiesByTeam(towersIterator, team);
+        List<Entity> towersEntity = Utils.getEntitiesByTeam(towersIterator, team);
 
         for (Entity entity : towersEntity) {
             DotaBuilding tower = ModelProxyFactory.getProxy(DotaBuilding.class, entity);

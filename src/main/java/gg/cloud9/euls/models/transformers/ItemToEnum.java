@@ -4,6 +4,7 @@ import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemToEnum implements ValueTransformer<Integer, Item> {
 
@@ -13,7 +14,7 @@ public class ItemToEnum implements ValueTransformer<Integer, Item> {
     }
 
     @Override
-    public ArrayList<Item> transformArray(ArrayList<Integer> propArray) {
+    public List<Item> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<Item> propTransformArray = new ArrayList<Item>();
 

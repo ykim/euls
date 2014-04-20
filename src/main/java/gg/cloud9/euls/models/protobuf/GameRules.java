@@ -14,7 +14,7 @@ import gg.cloud9.euls.models.transformers.gamerule.GamePickStateToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameStateToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameWinnerToEnum;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * GameRules - Represents DT_DOTAGamerulesProxy
@@ -40,7 +40,7 @@ public interface GameRules {
     public GameWinner getGameWinner();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_iCaptainPlayerIDs")
-    public ArrayList<Integer> getCaptainIndex();
+    public List<Integer> getCaptainIndex();
 
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_iStartingTeam", transformer = TeamToEnum.class)
     public Team getStartingTeamForDraft();
@@ -55,13 +55,13 @@ public interface GameRules {
     public Team getCurrentActiveTeam();
 
     @DotAArrayProperty(type = Float.class, propertyName = "dota_gamerules_data.m_fExtraTimeRemaining")
-    public ArrayList<Float> getCurrentExtraTime();
+    public List<Float> getCurrentExtraTime();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_BannedHeroes")
-    public ArrayList<Integer> getCurrentBansByHeroId();
+    public List<Integer> getCurrentBansByHeroId();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_SelectedHeroes")
-    public ArrayList<Integer> getCurrentPicksByHeroId();
+    public List<Integer> getCurrentPicksByHeroId();
 
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_nHeroPickState", transformer = GamePickStateToEnum.class)
     public GamePickState getGamePickState();

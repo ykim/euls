@@ -4,6 +4,7 @@ import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.Hero;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HeroToEnum implements ValueTransformer<Integer, Hero> {
 
@@ -13,7 +14,7 @@ public class HeroToEnum implements ValueTransformer<Integer, Hero> {
     }
 
     @Override
-    public ArrayList<Hero> transformArray(ArrayList<Integer> propArray) {
+    public List<Hero> transformArray(List<Integer> propArray) {
         if (propArray != null) {
             ArrayList<Hero> propTransformArray = new ArrayList<Hero>();
 
