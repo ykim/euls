@@ -3,6 +3,8 @@ package gg.cloud9.euls.models.transformers;
 import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.LifeState;
 
+import java.util.ArrayList;
+
 public class LifeStateToEnum implements ValueTransformer<Integer, LifeState> {
 
     @Override
@@ -11,12 +13,12 @@ public class LifeStateToEnum implements ValueTransformer<Integer, LifeState> {
     }
 
     @Override
-    public LifeState[] transformArray(Integer[] propArray) {
+    public ArrayList<LifeState> transformArray(ArrayList<Integer> propArray) {
         if (propArray != null) {
-            LifeState[] propTransformArray = new LifeState[propArray.length];
+            ArrayList<LifeState> propTransformArray = new ArrayList<LifeState>();
 
-            for (int i = 0; i < propArray.length; i++) {
-                propTransformArray[i] = LifeState.fromId(propArray[i]).orNull();
+            for (Integer integer : propArray) {
+                propTransformArray.add(LifeState.fromId(integer).orNull());
             }
 
             return propTransformArray;

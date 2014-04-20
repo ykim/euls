@@ -20,21 +20,22 @@ public class Utils {
         return new Vector2f(xCoordinate, yCoordinate);
     }
 
-    // TODO: Change this to an ArrayList
-    public static Entity[] getEntityFromHandles(Integer[] handles, EntityCollection e) {
-        if (handles != null) {
-            Entity[] entities = new Entity[handles.length];
+    public static ArrayList<Entity> getEntityFromHandles(ArrayList<Integer> handles, EntityCollection e) {
+        ArrayList<Entity> entities = new ArrayList<Entity>();
 
-            for (int i = 0; i < handles.length; i++) {
-                if (handles[i] != NEGATIVE) {
-                    entities[i] = e.getByHandle(handles[i]);
-                } else {
-                    entities[i] = null;
+        if (handles != null) {
+            for (Integer handle : handles) {
+                if (handle != null) {
+                    if (handle != NEGATIVE) {
+                        entities.add(e.getByHandle(handle));
+                        continue;
+                    }
                 }
+                entities.add(null);
             }
-            return entities;
         }
-        return null;
+
+        return entities;
     }
 
     public static ArrayList<Entity> getEntitiesByTeam(Iterator<Entity> iter, Team team) {
@@ -49,9 +50,9 @@ public class Utils {
                 if (dotaEntity != null) {
                     Team dotaTeam = dotaEntity.getTeam();
 
-                     if (dotaTeam == team) {
-                         entitiesByTeam.add(entity);
-                     }
+                    if (dotaTeam == team) {
+                        entitiesByTeam.add(entity);
+                    }
                 }
             }
         }

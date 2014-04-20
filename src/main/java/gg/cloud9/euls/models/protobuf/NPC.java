@@ -6,6 +6,7 @@ import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.models.transformers.LifeStateToEnum;
 
 import javax.vecmath.Vector2f;
+import java.util.ArrayList;
 
 /**
  * NPC - Represents DT_DOTA_BaseNPC
@@ -25,10 +26,10 @@ public interface NPC extends Entity {
     public Integer getNightVision();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_Inventory.m_hItems")
-    public Integer[] getCurrentItemHandles();
+    public ArrayList<Integer> getCurrentItemHandles();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_hAbilities")
-    public Integer[] getAbilityHandles();
+    public ArrayList<Integer> getAbilityHandles();
 
     @DotAProperty(type = Integer.class, propertyName = "m_iCurrentLevel")
     public Integer getCurrentLevel();

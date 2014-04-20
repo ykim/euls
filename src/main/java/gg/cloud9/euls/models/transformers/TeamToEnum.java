@@ -3,6 +3,8 @@ package gg.cloud9.euls.models.transformers;
 import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.Team;
 
+import java.util.ArrayList;
+
 public class TeamToEnum implements ValueTransformer<Integer, Team> {
 
     @Override
@@ -11,12 +13,12 @@ public class TeamToEnum implements ValueTransformer<Integer, Team> {
     }
 
     @Override
-    public Team[] transformArray(Integer[] propArray) {
+    public ArrayList<Team> transformArray(ArrayList<Integer> propArray) {
         if (propArray != null) {
-            Team[] propTransformArray = new Team[propArray.length];
+            ArrayList<Team> propTransformArray = new ArrayList<Team>();
 
-            for (int i = 0; i < propArray.length; i++) {
-                propTransformArray[i] = Team.fromId(propArray[i]).orNull();
+            for (Integer integer : propArray) {
+                propTransformArray.add(Team.fromId(integer).orNull());
             }
 
             return propTransformArray;

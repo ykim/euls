@@ -9,6 +9,8 @@ import gg.cloud9.euls.models.protobuf.PlayerResource;
 import skadistats.clarity.match.Match;
 import skadistats.clarity.model.Entity;
 
+import java.util.ArrayList;
+
 /**
  * DotaPlayer - Model to access objects for a Player
  */
@@ -44,9 +46,9 @@ public class DotaPlayer {
 
     public Long getSteamId() {
         if (playerResource != null) {
-            Long[] steamIds = playerResource.getSteamIds();
-            if (steamIds != null) {
-                return steamIds[playerIndex];
+            ArrayList<Long> steamIds = playerResource.getSteamIds();
+            if (steamIds != null && steamIds.size() > playerIndex) {
+                return steamIds.get(playerIndex);
             }
         }
         return null;
@@ -54,9 +56,9 @@ public class DotaPlayer {
 
     public Team getTeam() {
         if (playerResource != null) {
-            Team[] teams = playerResource.getTeams();
-            if (teams != null) {
-                return teams[playerIndex];
+            ArrayList<Team> teams = playerResource.getTeams();
+            if (teams != null && teams.size() > playerIndex) {
+                return teams.get(playerIndex);
             }
         }
         return null;
@@ -64,9 +66,9 @@ public class DotaPlayer {
 
     public Hero getHero() {
         if (playerResource != null) {
-            Hero[] heros = playerResource.getSelectedHero();
-            if (heros != null) {
-                return heros[playerIndex];
+            ArrayList<Hero> heros = playerResource.getSelectedHero();
+            if (heros != null && heros.size() > playerIndex) {
+                return heros.get(playerIndex);
             }
         }
         return null;
@@ -83,34 +85,31 @@ public class DotaPlayer {
 
     // TODO: Return Item constants
 
-    public DotaItem[] getItemProperty() {
+    public ArrayList<DotaItem> getItemProperty() {
+        ArrayList<DotaItem> items = new ArrayList<DotaItem>();
+
         DotaHero hero = getHeroProperty();
         if (hero != null) {
-            Integer[] itemHandles = hero.getCurrentItemHandles();
+            ArrayList<Integer> itemHandles = hero.getCurrentItemHandles();
+            ArrayList<Entity> itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
 
-            if (itemHandles != null) {
-                Entity[] itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());
-                DotaItem[] items = new DotaItem[itemEntities.length];
-
-                for (int i = 0; i < itemEntities.length; i++) {
-                    if (itemEntities[i] != null) {
-                        items[i] = ModelProxyFactory.getProxy(DotaItem.class, itemEntities[i]);
-                    } else {
-                        items[i] = null;
-                    }
+            for (Entity itemEntity : itemEntities) {
+                if (itemEntity != null) {
+                    items.add(ModelProxyFactory.getProxy(DotaItem.class, itemEntity));
+                } else {
+                    items.add(null);
                 }
-
-                return items;
             }
         }
-        return null;
+
+        return items;
     }
 
     public Integer getCurrentTotalAssists() {
         if (playerResource != null) {
-            Integer[] currentTotalAssists = playerResource.getCurrentTotalAssists();
-            if (currentTotalAssists != null) {
-                return currentTotalAssists[playerIndex];
+            ArrayList<Integer> currentTotalAssists = playerResource.getCurrentTotalAssists();
+            if (currentTotalAssists != null && currentTotalAssists.size() > playerIndex) {
+                return currentTotalAssists.get(playerIndex);
             }
         }
         return null;
@@ -118,9 +117,9 @@ public class DotaPlayer {
 
     public Integer getCurrentTotalDeaths() {
         if (playerResource != null) {
-            Integer[] currentTotalDeaths = playerResource.getCurrentTotalDeaths();
-            if (currentTotalDeaths != null) {
-                return currentTotalDeaths[playerIndex];
+            ArrayList<Integer> currentTotalDeaths = playerResource.getCurrentTotalDeaths();
+            if (currentTotalDeaths != null && currentTotalDeaths.size() > playerIndex) {
+                return currentTotalDeaths.get(playerIndex);
             }
         }
         return null;
@@ -128,9 +127,9 @@ public class DotaPlayer {
 
     public Integer getCurrentDenies() {
         if (playerResource != null) {
-            Integer[] currentDenies = playerResource.getCurrentDenies();
-            if (currentDenies != null) {
-                return currentDenies[playerIndex];
+            ArrayList<Integer> currentDenies = playerResource.getCurrentDenies();
+            if (currentDenies != null && currentDenies.size() > playerIndex) {
+                return currentDenies.get(playerIndex);
             }
         }
         return null;
@@ -138,9 +137,9 @@ public class DotaPlayer {
 
     public Integer getCurrentTotalKills() {
         if (playerResource != null) {
-            Integer[] currentKills = playerResource.getCurrentTotalKills();
-            if (currentKills != null) {
-                return currentKills[playerIndex];
+            ArrayList<Integer> currentKills = playerResource.getCurrentTotalKills();
+            if (currentKills != null && currentKills.size() > playerIndex) {
+                return currentKills.get(playerIndex);
             }
         }
         return null;
@@ -148,9 +147,9 @@ public class DotaPlayer {
 
     public Integer getCurrentLastHits() {
         if (playerResource != null) {
-            Integer[] currentLastHits = playerResource.getCurrentLastHits();
-            if (currentLastHits != null) {
-                return currentLastHits[playerIndex];
+            ArrayList<Integer> currentLastHits = playerResource.getCurrentLastHits();
+            if (currentLastHits != null && currentLastHits.size() > playerIndex) {
+                return currentLastHits.get(playerIndex);
             }
         }
         return null;
@@ -158,9 +157,9 @@ public class DotaPlayer {
 
     public Integer getCurrentLevel() {
         if (playerResource != null) {
-            Integer[] currentLevels = playerResource.getCurrentLevels();
-            if (currentLevels != null) {
-                return currentLevels[playerIndex];
+            ArrayList<Integer> currentLevels = playerResource.getCurrentLevels();
+            if (currentLevels != null && currentLevels.size() > playerIndex) {
+                return currentLevels.get(playerIndex);
             }
         }
         return null;
@@ -169,15 +168,15 @@ public class DotaPlayer {
     public Integer getCurrentReliableGold() {
         Team team = getTeam();
         if (team != null && radiantData != null && direData != null) {
-            Integer[] gold = null;
+            ArrayList<Integer> gold = null;
             if (team == team.RADIANT) {
                 gold = radiantData.getCurrentReliableGold();
             }
             if (team == team.DIRE) {
                 gold = direData.getCurrentReliableGold();
             }
-            if (gold != null && gold.length > playerIndex) {
-                return gold[playerIndex];
+            if (gold != null && gold.size() > playerIndex) {
+                return gold.get(playerIndex);
             }
         }
         return null;
@@ -186,15 +185,15 @@ public class DotaPlayer {
     public Integer getCurrentUnreliableGold() {
         Team team = getTeam();
         if (team != null && radiantData != null && direData != null) {
-            Integer[] gold = null;
+            ArrayList<Integer> gold = null;
             if (team == team.RADIANT) {
                 gold = radiantData.getCurrentUnreliableGold();
             }
             if (team == team.DIRE) {
                 gold = direData.getCurrentUnreliableGold();
             }
-            if (gold != null && gold.length > playerIndex) {
-                return gold[playerIndex];
+            if (gold != null && gold.size() > playerIndex) {
+                return gold.get(playerIndex);
             }
         }
         return null;

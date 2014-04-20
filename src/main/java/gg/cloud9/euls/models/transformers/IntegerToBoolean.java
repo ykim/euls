@@ -2,6 +2,8 @@ package gg.cloud9.euls.models.transformers;
 
 import gg.cloud9.euls.annotations.ValueTransformer;
 
+import java.util.ArrayList;
+
 public class IntegerToBoolean implements ValueTransformer<Integer, Boolean> {
 
     @Override
@@ -17,17 +19,15 @@ public class IntegerToBoolean implements ValueTransformer<Integer, Boolean> {
     }
 
     @Override
-    public Boolean[] transformArray(Integer[] propArray) {
+    public ArrayList<Boolean> transformArray(ArrayList<Integer> propArray) {
         if (propArray != null) {
-            Boolean[] propTransformArray = new Boolean[propArray.length];
+            ArrayList<Boolean> propTransformArray = new ArrayList<Boolean>();
 
-            for (int i = 0; i < propArray.length; i++) {
-                if (propArray[i] != null) {
-                    if (propArray[i] == 0) {
-                        propTransformArray[i] = Boolean.FALSE;
-                    } else {
-                        propTransformArray[i] = Boolean.TRUE;
-                    }
+            for (Integer integer : propArray) {
+                if (integer == 0) {
+                    propTransformArray.add(Boolean.TRUE);
+                } else {
+                    propTransformArray.add(Boolean.FALSE);
                 }
             }
 

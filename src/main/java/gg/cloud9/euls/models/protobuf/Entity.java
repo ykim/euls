@@ -10,17 +10,17 @@ import gg.cloud9.euls.models.transformers.TeamToEnum;
 public interface Entity {
 
     @DotAProperty(type = Integer.class, propertyName = "m_iTeamNum", transformer = TeamToEnum.class)
-    Team getTeam();
+    public Team getTeam();
 
     @DotAProperty(type = String.class, propertyName = "m_iName")
-    String getName();
+    public String getName();
 
     @DotAProperty(type = Integer.class, propertyName = "m_cellX")
-    Integer getXCoordinate();
+    public Integer getXCoordinate();
 
     @DotAProperty(type = Integer.class, propertyName = "m_cellY")
-    Integer getYCoordinate();
+    public Integer getYCoordinate();
 
     @DotAProperty(type = Integer.class, propertyName = "m_cellbits")
-    Integer getCellBits();
+    public Integer getCellBits();
 }

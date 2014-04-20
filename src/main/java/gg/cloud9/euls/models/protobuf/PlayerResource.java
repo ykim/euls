@@ -6,51 +6,53 @@ import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.transformers.HeroToEnum;
 import gg.cloud9.euls.models.transformers.TeamToEnum;
 
+import java.util.ArrayList;
+
 /**
  * PlayerResource - Represents DT_DOTA_PlayerResource
  */
 public interface PlayerResource {
     @DotAArrayProperty(type = Long.class, propertyName = "m_iPlayerSteamIDs")
-    public Long[] getSteamIds();
+    public ArrayList<Long> getSteamIds();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iPlayerTeams", transformer = TeamToEnum.class)
-    public Team[] getTeams();
+    public ArrayList<Team> getTeams();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "DireOnlyData.m_iReliableGoldDire")
-    public Integer[] getDireCurrentReliableGold();
+    public ArrayList<Integer> getDireCurrentReliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "DireOnlyData.m_iUnreliableGoldDire")
-    public Integer[] getDireCurrentUnreliableGold();
+    public ArrayList<Integer> getDireCurrentUnreliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iReliableGoldRadiant")
-    public Integer[] getRadiantCurrentReliableGold();
+    public ArrayList<Integer> getRadiantCurrentReliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iUnreliableGoldRadiant")
-    public Integer[] getRadiantCurrentUnreliableGold();
+    public ArrayList<Integer> getRadiantCurrentUnreliableGold();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_nSelectedHeroID", transformer = HeroToEnum.class)
-    public Hero[] getSelectedHero();
+    public ArrayList<Hero> getSelectedHero();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iAssists")
-    public Integer[] getCurrentTotalAssists();
+    public ArrayList<Integer> getCurrentTotalAssists();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iDeaths")
-    public Integer[] getCurrentTotalDeaths();
+    public ArrayList<Integer> getCurrentTotalDeaths();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iDenyCount")
-    public Integer[] getCurrentDenies();
+    public ArrayList<Integer> getCurrentDenies();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iKills")
-    public Integer[] getCurrentTotalKills();
+    public ArrayList<Integer> getCurrentTotalKills();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iLastHitCount")
-    public Integer[] getCurrentLastHits();
+    public ArrayList<Integer> getCurrentLastHits();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iLevel")
-    public Integer[] getCurrentLevels();
+    public ArrayList<Integer> getCurrentLevels();
 
     @DotAArrayProperty(type = Integer.class, propertyName = "m_iStreak")
-    public Integer[] getCurrentKillStreak();
+    public ArrayList<Integer> getCurrentKillStreak();
 
 
 }

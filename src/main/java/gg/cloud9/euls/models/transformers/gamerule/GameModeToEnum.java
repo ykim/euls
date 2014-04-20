@@ -3,6 +3,8 @@ package gg.cloud9.euls.models.transformers.gamerule;
 import gg.cloud9.euls.annotations.ValueTransformer;
 import gg.cloud9.euls.constants.gamerule.GameMode;
 
+import java.util.ArrayList;
+
 public class GameModeToEnum implements ValueTransformer<Integer, GameMode> {
 
     @Override
@@ -11,12 +13,12 @@ public class GameModeToEnum implements ValueTransformer<Integer, GameMode> {
     }
 
     @Override
-    public GameMode[] transformArray(Integer[] propArray) {
+    public ArrayList<GameMode> transformArray(ArrayList<Integer> propArray) {
         if (propArray != null) {
-            GameMode[] propTransformArray = new GameMode[propArray.length];
+            ArrayList<GameMode> propTransformArray = new ArrayList<GameMode>();
 
-            for (int i = 0; i < propArray.length; i++) {
-                propTransformArray[i] = GameMode.fromId(propArray[i]).orNull();
+            for (Integer integer : propArray) {
+                propTransformArray.add(GameMode.fromId(integer).orNull());
             }
 
             return propTransformArray;

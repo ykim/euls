@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 
 import skadistats.clarity.model.Entity;
 
@@ -49,14 +50,21 @@ public final class ModelProxyFactory {
                 if (annotation instanceof DotAArrayProperty) {
                     DotAArrayProperty prop = (DotAArrayProperty) annotation;
                     Object[] propArray = valueOfArrayProperty(entity, prop.type(), prop.propertyName());
+
+                    // Convert to ArrayList
+                    ArrayList<Object> propList = new ArrayList<Object>();
+                    for (Object property: propArray) {
+                        propList.add(property);
+                    }
+
                     if (prop.transformer() == DotAArrayProperty.NoTransformer.class) {
-                        return propArray;
+                        return propList;
                     }
 
                     @SuppressWarnings("unchecked")
                     ValueTransformer<Object, Object> transformer = (ValueTransformer<Object, Object>) prop
                             .transformer().newInstance();
-                    return transformer.transformArray(propArray);
+                    return transformer.transformArray(propList);
                 }
             }
 
