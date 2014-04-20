@@ -2,9 +2,9 @@ package gg.cloud9.euls;
 
 import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.Team;
+import gg.cloud9.euls.models.DotaBuilding;
 import gg.cloud9.euls.models.DotaCourier;
 import gg.cloud9.euls.models.DotaPlayer;
-import gg.cloud9.euls.models.protobuf.Courier;
 import gg.cloud9.euls.models.protobuf.GameRules;
 
 import skadistats.clarity.Clarity;
@@ -128,27 +128,58 @@ public class Replay {
         return players.get(i);
     }
 
-    public ArrayList<Courier> getCouriersByTeam(Team team) {
-        ArrayList<Courier> couriers = new ArrayList<Courier>();
+    public ArrayList<DotaCourier> getCouriersByTeam(Team team) {
+        ArrayList<DotaCourier> couriers = new ArrayList<DotaCourier>();
 
         Iterator<Entity> courierIterator = this.match.getEntities().getAllByDtName("DT_DOTA_Unit_Courier");
+        ArrayList<Entity> courierEntity = Utils.getEntitiesByTeam(courierIterator, team);
 
-        while (courierIterator.hasNext()) {
-            Entity courierEntity = courierIterator.next();
-            if (courierEntity != null) {
-                Courier courier = ModelProxyFactory.getProxy(Courier.class, courierEntity);
-
-                if (courier != null) {
-                    Team courierTeam = courier.getTeam();
-
-                    if (courierTeam == team) {
-                        couriers.add(courier);
-                    }
-                }
-            }
+        for (Entity entity : courierEntity) {
+            DotaCourier courier = ModelProxyFactory.getProxy(DotaCourier.class, entity);
+            couriers.add(courier);
         }
 
         return couriers;
+    }
+
+    public DotaBuilding getAncientByTeam(Team team) {
+        Iterator<Entity> ancientIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Fort");
+        ArrayList<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
+
+        for (Entity entity : ancientEntity) {
+            DotaBuilding ancient = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            return ancient;
+        }
+
+        return null;
+    }
+
+    public ArrayList<DotaBuilding> getBarracksByTeam(Team team) {
+        ArrayList<DotaBuilding> barracks = new ArrayList<DotaBuilding>();
+
+        Iterator<Entity> barracksIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Barracks");
+        ArrayList<Entity> barracksEntity = Utils.getEntitiesByTeam(barracksIterator, team);
+
+        for (Entity entity : barracksEntity) {
+            DotaBuilding barrack = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            barracks.add(barrack);
+        }
+
+        return barracks;
+    }
+
+    public ArrayList<DotaBuilding> getTowersByTeam(Team team) {
+        ArrayList<DotaBuilding> towers = new ArrayList<DotaBuilding>();
+
+        Iterator<Entity> towersIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Tower");
+        ArrayList<Entity> towersEntity = Utils.getEntitiesByTeam(towersIterator, team);
+
+        for (Entity entity : towersEntity) {
+            DotaBuilding tower = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            towers.add(tower);
+        }
+
+        return towers;
     }
 
     public GameEventCollection getGameEvents() {

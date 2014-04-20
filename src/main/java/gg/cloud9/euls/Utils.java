@@ -1,9 +1,13 @@
 package gg.cloud9.euls;
 
+import gg.cloud9.euls.annotations.ModelProxyFactory;
+import gg.cloud9.euls.constants.Team;
 import skadistats.clarity.match.EntityCollection;
 import skadistats.clarity.model.Entity;
 
 import javax.vecmath.Vector2f;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Utils {
     public static final Integer MAX_COORDINATE = 16384;
@@ -16,6 +20,7 @@ public class Utils {
         return new Vector2f(xCoordinate, yCoordinate);
     }
 
+    // TODO: Change this to an ArrayList
     public static Entity[] getEntityFromHandles(Integer[] handles, EntityCollection e) {
         if (handles != null) {
             Entity[] entities = new Entity[handles.length];
@@ -30,6 +35,28 @@ public class Utils {
             return entities;
         }
         return null;
+    }
+
+    public static ArrayList<Entity> getEntitiesByTeam(Iterator<Entity> iter, Team team) {
+        ArrayList<Entity> entitiesByTeam = new ArrayList<Entity>();
+
+        while (iter.hasNext()) {
+            Entity entity = iter.next();
+
+            if (entity != null) {
+                gg.cloud9.euls.models.protobuf.Entity dotaEntity = ModelProxyFactory.getProxy(gg.cloud9.euls.models.protobuf.Entity.class, entity);
+
+                if (dotaEntity != null) {
+                    Team dotaTeam = dotaEntity.getTeam();
+
+                     if (dotaTeam == team) {
+                         entitiesByTeam.add(entity);
+                     }
+                }
+            }
+        }
+
+        return entitiesByTeam;
     }
 
     public static <T> T getPropertyFromEntity(Entity e, Class<T> clazz, String name) {
