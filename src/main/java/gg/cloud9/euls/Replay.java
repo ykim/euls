@@ -1,9 +1,11 @@
 package gg.cloud9.euls;
 
 import gg.cloud9.euls.annotations.ModelProxyFactory;
+import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.DotaBuilding;
 import gg.cloud9.euls.models.DotaCourier;
+import gg.cloud9.euls.models.DotaLaneCreep;
 import gg.cloud9.euls.models.DotaPlayer;
 import gg.cloud9.euls.models.protobuf.GameRules;
 
@@ -183,6 +185,31 @@ public class Replay {
         return towers;
     }
 
+    public ArrayList<DotaLaneCreep> getLaneCreepsByTeam(Team team) {
+        ArrayList<DotaLaneCreep> laneCreeps = new ArrayList<DotaLaneCreep>();
+
+        Iterator<Entity> creepIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Creep_Lane");
+
+        while (creepIterator.hasNext()) {
+            Entity creepEntity = creepIterator.next();
+
+            if (creepEntity != null) {
+                DotaLaneCreep creep = new DotaLaneCreep(creepEntity);
+
+                if (creep != null) {
+                    Team creepTeam = creep.getTeam();
+
+                    if (creepTeam == team && creep.getLifeState() == LifeState.ALIVE) {
+                        laneCreeps.add(creep);
+                    }
+                }
+            }
+        }
+
+        return laneCreeps;
+    }
+
+    // TODO: Return Events based on type
     public GameEventCollection getGameEvents() {
         return gameEvents;
     }

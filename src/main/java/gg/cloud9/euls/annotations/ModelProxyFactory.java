@@ -3,6 +3,7 @@ package gg.cloud9.euls.annotations;
 import gg.cloud9.euls.Utils;
 
 import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -33,6 +34,7 @@ public final class ModelProxyFactory {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            // Check for annotations
             Annotation[] annotations = method.getDeclaredAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof DotAProperty) {
@@ -68,6 +70,15 @@ public final class ModelProxyFactory {
                 }
             }
 
+            // Check for defender
+            if (method.isDefault()) {
+                final Class<?> declaringClass = method.getDeclaringClass();
+                return MethodHandles.lookup()
+                        .in(declaringClass)
+                        .unreflectSpecial(method, declaringClass)
+                        .bindTo(proxy)
+                        .invokeWithArguments(args);
+            }
             return null;
         }
 

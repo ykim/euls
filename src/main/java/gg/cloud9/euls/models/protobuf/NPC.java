@@ -3,6 +3,7 @@ package gg.cloud9.euls.models.protobuf;
 import gg.cloud9.euls.annotations.DotAArrayProperty;
 import gg.cloud9.euls.annotations.DotAProperty;
 import gg.cloud9.euls.constants.LifeState;
+import gg.cloud9.euls.models.transformers.IntegerToBoolean;
 import gg.cloud9.euls.models.transformers.LifeStateToEnum;
 
 import javax.vecmath.Vector2f;
@@ -51,4 +52,16 @@ public interface NPC extends Entity {
 
     @DotAProperty(type = Float.class, propertyName = "m_flManaThinkRegen")
     public Float getCurrentManaRegen();
+
+    @DotAProperty(type = Integer.class, propertyName = "m_bIsNeutralUnitType", transformer = IntegerToBoolean.class)
+    public Boolean isNeutralUnit();
+
+    @DotAProperty(type = Integer.class, propertyName = "m_bIsAncient", transformer = IntegerToBoolean.class)
+    public Boolean isAncientUnit();
+
+    @DotAProperty(type = Integer.class, propertyName = "m_bIsSummoned", transformer = IntegerToBoolean.class)
+    public Boolean isSummoned();
+
+    @DotAProperty(type = Integer.class, propertyName = "m_bCanBeDominated", transformer = IntegerToBoolean.class)
+    public Boolean isDominable();
 }
