@@ -5,15 +5,18 @@ import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.protobuf.NPCCreep;
 import skadistats.clarity.model.Entity;
+import skadistats.clarity.model.StringTable;
 
 import javax.vecmath.Vector2f;
 import java.util.List;
 
 public class DotaLaneCreep implements NPCCreep {
     private NPCCreep creep;
+    private StringTable models;
 
-    public DotaLaneCreep(Entity entity) {
+    public DotaLaneCreep(Entity entity, StringTable modelsTable) {
         this.creep = ModelProxyFactory.getProxy(NPCCreep.class, entity);
+        this.models = modelsTable;
     }
 
     @Override
@@ -121,7 +124,14 @@ public class DotaLaneCreep implements NPCCreep {
 
     @Override
     public String getName() {
-        return creep.getName();
+        if (models != null) {
+            String modelCacheName = models.getNameByIndex(getModelIndex());
+            Integer index = modelCacheName.lastIndexOf("/");
+            if (index != -1) {
+                return modelCacheName.substring(index + 1);
+            }
+        }
+        return null;
     }
 
     @Override

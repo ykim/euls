@@ -194,7 +194,7 @@ public class Replay {
         List<Entity> creepsEntity = Utils.getEntitiesByTeam(creepIterator, team);
 
         for (Entity entity : creepsEntity) {
-            DotaLaneCreep creep = new DotaLaneCreep(entity);
+            DotaLaneCreep creep = new DotaLaneCreep(entity, models);
             if (creep.getLifeState() == LifeState.ALIVE) {
                 laneCreeps.add(creep);
             }
