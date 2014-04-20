@@ -7,6 +7,7 @@ import gg.cloud9.euls.constants.gamerule.GameMode;
 import gg.cloud9.euls.constants.gamerule.GamePickState;
 import gg.cloud9.euls.constants.gamerule.GameState;
 import gg.cloud9.euls.constants.gamerule.GameWinner;
+import gg.cloud9.euls.models.transformers.IntegerToBoolean;
 import gg.cloud9.euls.models.transformers.TeamToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GameModeToEnum;
 import gg.cloud9.euls.models.transformers.gamerule.GamePickStateToEnum;
@@ -23,8 +24,17 @@ public interface GameRules {
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_unMatchID")
     public Integer getMatchId();
 
+    @DotAProperty(type = String.class, propertyName = "dota_gamerules_data.m_lobbyGameName")
+    public String getGameName();
+
+    @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_lobbyLeagueID")
+    public String getLeagueId();
+
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_iGameMode", transformer = GameModeToEnum.class)
     public GameMode getGameMode();
+
+    @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_bGamePaused", transformer = IntegerToBoolean.class)
+    public Boolean isPaused();
 
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_nGameWinner", transformer = GameWinnerToEnum.class)
     public GameWinner getGameWinner();
@@ -55,6 +65,9 @@ public interface GameRules {
 
     @DotAProperty(type = Integer.class, propertyName = "dota_gamerules_data.m_nHeroPickState", transformer = GamePickStateToEnum.class)
     public GamePickState getGamePickState();
+
+    @DotAProperty(type = Float.class, propertyName = "dota_gamerules_data.m_fGameTime")
+    public Float getCurrentGameTime();
 
     @DotAProperty(type = Float.class, propertyName = "dota_gamerules_data.m_flGameLoadTime")
     public Float getLoadTime();
