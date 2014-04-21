@@ -274,6 +274,16 @@ public enum Item {
         reverseMap = builder.build();
     }
 
+    private static final ImmutableMap<String, Item> reverseInternalMap;
+
+    static {
+        ImmutableMap.Builder<String, Item> builder = ImmutableMap.builder();
+        for (Item value : EnumSet.allOf(Item.class)) {
+            builder.put(value.internalName, value);
+        }
+        reverseInternalMap = builder.build();
+    }
+
     public static Optional<Item> fromId(Integer id) {
         Item value = reverseMap.get(id);
         return Optional.fromNullable(value);
@@ -286,5 +296,10 @@ public enum Item {
 
         Item value = reverseMap.get(id.get());
         return Optional.of(value);
+    }
+
+    public static Optional<Item> fromInternalName(String internalName) {
+        Item value = reverseInternalMap.get(internalName);
+        return Optional.fromNullable(value);
     }
 }

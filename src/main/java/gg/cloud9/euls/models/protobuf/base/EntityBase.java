@@ -11,7 +11,7 @@ import java.util.List;
  * EntityBase - Represents a clarity entity wrapper
  */
 public class EntityBase {
-    private Entity entity;
+    protected Entity entity;
 
     public EntityBase(Entity e) {
         entity = e;

@@ -64,7 +64,16 @@ public class DotaPlayer {
         return null;
     }
 
-    public Hero getHero() {
+    public DotaHero getHero() {
+        Hero heroConstant = getHeroHelper();
+        if (heroConstant != null) {
+            String internalName = heroConstant.getInternalName();
+            return new DotaHero(this.match.getEntities().getByDtName(internalName));
+        }
+        return null;
+    }
+
+    private Hero getHeroHelper() {
         if (playerResource != null) {
             List<Hero> heros = playerResource.getSelectedHero();
             if (heros != null && heros.size() > playerIndex) {
@@ -74,21 +83,11 @@ public class DotaPlayer {
         return null;
     }
 
-    public DotaHero getHeroProperty() {
-        Hero heroConstant = getHero();
-        if (heroConstant != null) {
-            String internalName = heroConstant.getInternalName();
-            return new DotaHero(this.match.getEntities().getByDtName(internalName));
-        }
-        return null;
-    }
-
-    // TODO: Return Item constants
-
-    public List<DotaItem> getItemProperty() {
+    public List<DotaItem> getItems() {
         ArrayList<DotaItem> items = new ArrayList<DotaItem>();
 
-        DotaHero hero = getHeroProperty();
+        DotaHero hero = getHero();
+
         if (hero != null) {
             List<Integer> itemHandles = hero.getCurrentItemHandles();
             List<Entity> itemEntities = Utils.getEntityFromHandles(itemHandles, this.match.getEntities());

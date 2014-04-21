@@ -30,11 +30,11 @@ public class App {
 //                System.out.println(matchReplay.getReplayTimeAsString());
 //                for (int i = 0; i < 10; i++) {
 //                    DotaPlayer playah = matchReplay.getDotaPlayerByIndex(i);
-//                    List<DotaItem> items = playah.getItemProperty();
+//                    List<DotaItem> items = playah.getItems();
 //                    if (items != null) {
 //                        for (DotaItem item : items) {
 //                            if (item != null) {
-//                                System.out.println(item.getName());
+//                                System.out.println(item.getItem());
 //                            }
 //                        }
 //                    }
@@ -47,12 +47,12 @@ public class App {
 //                }
 
 //                System.out.println(matchReplay.getReplayTimeAsString());
-//                DotaPlayer hero1 = matchReplay.getDotaPlayerByIndex(3);
-//                if (hero1 != null) {
-//                    DotaHero hero1Property = hero1.getHeroProperty();
-//                    if (hero1Property != null) {
-//                        System.out.println(hero1Property.getCoordinates());
-//                        System.out.println(hero1Property.getCurrentHP());
+//                DotaPlayer player = matchReplay.getDotaPlayerByIndex(1);
+//                if (player != null) {
+//                    DotaHero hero = player.getHero();
+//                    if (hero != null) {
+//                        System.out.println(hero.getHero());
+//                        System.out.println(hero.getCurrentHP());
 //                    }
 //                }
 //                System.out.println("");

@@ -147,6 +147,16 @@ public enum Hero {
         reverseMap = builder.build();
     }
 
+    private static final ImmutableMap<String, Hero> reverseInternalMap;
+
+    static {
+        ImmutableMap.Builder<String, Hero> builder = ImmutableMap.builder();
+        for (Hero value : EnumSet.allOf(Hero.class)) {
+            builder.put(value.internalName, value);
+        }
+        reverseInternalMap = builder.build();
+    }
+
     public static Optional<Hero> fromId(Integer id) {
         Hero value = reverseMap.get(id);
         return Optional.fromNullable(value);
@@ -159,5 +169,10 @@ public enum Hero {
 
         Hero value = reverseMap.get(id.get());
         return Optional.of(value);
+    }
+
+    public static Optional<Hero> fromInternalName(String internalName) {
+        Hero value = reverseInternalMap.get(internalName);
+        return Optional.fromNullable(value);
     }
 }
