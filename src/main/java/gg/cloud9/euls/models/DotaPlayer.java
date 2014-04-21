@@ -1,7 +1,6 @@
 package gg.cloud9.euls.models;
 
 import gg.cloud9.euls.Utils;
-import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.Hero;
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.protobuf.NonSpectator;
@@ -33,15 +32,15 @@ public class DotaPlayer {
     public void tick() {
         Entity playerResource = this.match.getPlayerResource();
         if (playerResource != null) {
-            this.playerResource = ModelProxyFactory.getProxy(PlayerResource.class, playerResource);
+            this.playerResource = new PlayerResource(playerResource);
         }
         Entity direData = this.match.getEntities().getByDtName("DT_DOTA_DataDire");
         if (direData != null) {
-            this.direData = ModelProxyFactory.getProxy(NonSpectator.class, direData);
+            this.direData = new NonSpectator(direData);
         }
         Entity radiantData = this.match.getEntities().getByDtName("DT_DOTA_DataRadiant");
         if (radiantData != null) {
-            this.radiantData = ModelProxyFactory.getProxy(NonSpectator.class, radiantData);
+            this.radiantData = new NonSpectator(radiantData);
         }
     }
 
@@ -79,7 +78,7 @@ public class DotaPlayer {
         Hero heroConstant = getHero();
         if (heroConstant != null) {
             String internalName = heroConstant.getInternalName();
-            return ModelProxyFactory.getProxy(DotaHero.class, this.match.getEntities().getByDtName(internalName));
+            return new DotaHero(this.match.getEntities().getByDtName(internalName));
         }
         return null;
     }
@@ -96,7 +95,7 @@ public class DotaPlayer {
 
             for (Entity itemEntity : itemEntities) {
                 if (itemEntity != null) {
-                    items.add(ModelProxyFactory.getProxy(DotaItem.class, itemEntity));
+                    items.add(new DotaItem(itemEntity));
                 } else {
                     items.add(null);
                 }

@@ -1,7 +1,6 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAArrayProperty;
-import gg.cloud9.euls.annotations.DotAProperty;
+import gg.cloud9.euls.Utils;
 import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.models.transformers.IntegerToBoolean;
 import gg.cloud9.euls.models.transformers.LifeStateToEnum;
@@ -12,56 +11,87 @@ import java.util.List;
 /**
  * NPC - Represents DT_DOTA_BaseNPC
  */
-public interface NPC extends Entity {
+public class NPC extends Entity {
 
-    @DotAProperty(type = Vector2f.class, propertyName = "m_vecOrigin")
-    public Vector2f getVectorOrigin();
+    public NPC(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_lifeState", transformer = LifeStateToEnum.class)
-    public LifeState getLifeState();
+    public Vector2f getCoordinates() {
+        return Utils.cellToCoordinates(getXCoordinate(), getYCoordinate(), getVectorOrigin(), getCellBits());
+    }
 
-    @DotAProperty(type = Vector2f.class, propertyName = "m_iDayTimeVisionRange")
-    public Integer getDayVision();
+    public Vector2f getVectorOrigin() {
+        return getProperty(Vector2f.class, "m_vecOrigin");
+    }
 
-    @DotAProperty(type = Vector2f.class, propertyName = "m_iNightTimeVisionRange")
-    public Integer getNightVision();
+    public LifeState getLifeState() {
+        LifeStateToEnum transformer = new LifeStateToEnum();
+        return transformer.transform(getProperty(Integer.class, "m_lifeState"));
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_Inventory.m_hItems")
-    public List<Integer> getCurrentItemHandles();
+    public Integer getDayVision() {
+        return getProperty(Integer.class, "m_iDayTimeVisionRange");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_hAbilities")
-    public List<Integer> getAbilityHandles();
+    public Integer getNightVision() {
+        return getProperty(Integer.class, "m_iNightTimeVisionRange");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iCurrentLevel")
-    public Integer getCurrentLevel();
+    public List<Integer> getCurrentItemHandles() {
+        return getListProperty(Integer.class, "m_Inventory.m_hItems");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iHealth")
-    public Integer getCurrentHP();
+    public List<Integer> getAbilityHandles() {
+        return getListProperty(Integer.class, "m_hAbilities");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iMaxHealth")
-    public Integer getMaxHP();
+    public Integer getCurrentLevel() {
+        return getProperty(Integer.class, "m_iCurrentLevel");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flHealthThinkRegen")
-    public Float getCurrentHPRegen();
 
-    @DotAProperty(type = Float.class, propertyName = "m_flMana")
-    public Float getCurrentMana();
+    public Integer getCurrentHP() {
+        return getProperty(Integer.class, "m_iHealth");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flMaxMana")
-    public Float getMaxMana();
+    public Integer getMaxHP() {
+        return getProperty(Integer.class, "m_iMaxHealth");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flManaThinkRegen")
-    public Float getCurrentManaRegen();
+    public Float getCurrentHPRegen() {
+        return getProperty(Float.class, "m_flHealthThinkRegen");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bIsNeutralUnitType", transformer = IntegerToBoolean.class)
-    public Boolean isNeutralUnit();
+    public Float getCurrentMana() {
+        return getProperty(Float.class, "m_flMana");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bIsAncient", transformer = IntegerToBoolean.class)
-    public Boolean isAncientUnit();
+    public Float getMaxMana() {
+        return getProperty(Float.class, "m_flMaxMana");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bIsSummoned", transformer = IntegerToBoolean.class)
-    public Boolean isSummoned();
+    public Float getCurrentManaRegen() {
+        return getProperty(Float.class, "m_flManaThinkRegen");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bCanBeDominated", transformer = IntegerToBoolean.class)
-    public Boolean isDominable();
+    public Boolean isNeutralUnit() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bIsNeutralUnitType"));
+    }
+
+    public Boolean isAncientUnit() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bIsAncient"));
+    }
+
+    public Boolean isSummoned() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bIsSummoned"));
+    }
+
+    public Boolean isDominable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bCanBeDominated"));
+    }
 }

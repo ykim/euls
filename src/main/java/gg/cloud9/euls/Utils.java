@@ -1,6 +1,5 @@
 package gg.cloud9.euls;
 
-import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.Team;
 import skadistats.clarity.match.EntityCollection;
 import skadistats.clarity.model.Entity;
@@ -46,7 +45,7 @@ public class Utils {
             Entity entity = iter.next();
 
             if (entity != null) {
-                gg.cloud9.euls.models.protobuf.Entity dotaEntity = ModelProxyFactory.getProxy(gg.cloud9.euls.models.protobuf.Entity.class, entity);
+                gg.cloud9.euls.models.protobuf.Entity dotaEntity = new gg.cloud9.euls.models.protobuf.Entity(entity);
 
                 if (dotaEntity != null) {
                     Team dotaTeam = dotaEntity.getTeam();

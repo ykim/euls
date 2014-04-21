@@ -1,39 +1,51 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAProperty;
-
 /**
  * NPCHero - Represents DT_DOTA_BaseNPC_Hero
  */
-public interface NPCHero extends NPC {
+public class NPCHero extends NPC {
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iPlayerID")
-    public Integer getPlayerId();
+    public NPCHero(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iCurrentXP")
-    public Integer getCurrentExp();
+    public Integer getPlayerId() {
+        return getProperty(Integer.class, "m_iPlayerID");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flRespawnTime")
-    public Float getCurrentRespawnTime();
+    public Integer getCurrentExp() {
+        return getProperty(Integer.class, "m_iCurrentXP");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flStrength")
-    public Float getCurrentStrengthFromLevels();
+    public Float getCurrentRespawnTime() {
+        return getProperty(Float.class, "m_flRespawnTime");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flAgility")
-    public Float getCurrentAgilityFromLevels();
+    public Float getCurrentStrengthFromLevels() {
+        return getProperty(Float.class, "m_flStrength");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flIntellect")
-    public Float getCurrentIntellectFromLevels();
+    public Float getCurrentAgilityFromLevels() {
+        return getProperty(Float.class, "m_flAgility");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flStrengthTotal")
-    public Float getCurrentTotalStrength();
+    public Float getCurrentIntellectFromLevels() {
+        return getProperty(Float.class, "m_flIntellect");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flAgilityTotal")
-    public Float getCurrentTotalAgility();
+    public Float getCurrentTotalStrength() {
+        return getProperty(Float.class, "m_flStrengthTotal");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flIntellectTotal")
-    public Float getCurrentTotalIntellect();
+    public Float getCurrentTotalAgility() {
+        return getProperty(Float.class, "m_flAgilityTotal");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flSpawnedAt")
-    public Float getLastSpawnedTime();
+    public Float getCurrentTotalIntellect() {
+        return getProperty(Float.class, "m_flIntellectTotal");
+    }
+
+    public Float getLastSpawnedTime() {
+        return getProperty(Float.class, "m_flSpawnedAt");
+    }
 }

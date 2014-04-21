@@ -30,7 +30,7 @@ public class App {
 //                System.out.println(matchReplay.getReplayTimeAsString());
 //                for (int i = 0; i < 10; i++) {
 //                    DotaPlayer playah = matchReplay.getDotaPlayerByIndex(i);
-//                    ArrayList<DotaItem> items = playah.getItemProperty();
+//                    List<DotaItem> items = playah.getItemProperty();
 //                    if (items != null) {
 //                        for (DotaItem item : items) {
 //                            if (item != null) {
@@ -51,7 +51,8 @@ public class App {
 //                if (hero1 != null) {
 //                    DotaHero hero1Property = hero1.getHeroProperty();
 //                    if (hero1Property != null) {
-//                        System.out.print(hero1Property.getCurrentHP());
+//                        System.out.println(hero1Property.getCoordinates());
+//                        System.out.println(hero1Property.getCurrentHP());
 //                    }
 //                }
 //                System.out.println("");
@@ -59,15 +60,15 @@ public class App {
 //                GameRules rules = matchReplay.getGameRules();
 //
 //                if (rules != null) {
-//                    System.out.println(rules.getGamePickState());
+//                    System.out.println(rules.getCurrentGameTime());
 //                }
 
 //                System.out.println(matchReplay.getReplayTimeAsString());
-//                ArrayList<DotaCourier> couriers = matchReplay.getCouriersByTeam(Team.DIRE);
+//                List<DotaCourier> couriers = matchReplay.getCouriersByTeam(Team.RADIANT);
 //                for (DotaCourier courier : couriers) {
 //                    if (courier != null) {
 //                        System.out.println(courier.getCurrentHP());
-//                        System.out.println(Utils.cellToCoordinates(courier.getXCoordinate(), courier.getYCoordinate(), courier.getVectorOrigin(), courier.getCellBits()));
+//                        System.out.println(courier.getCoordinates());
 //                    }
 //                }
 

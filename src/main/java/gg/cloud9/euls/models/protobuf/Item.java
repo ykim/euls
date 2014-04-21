@@ -1,58 +1,90 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAProperty;
 import gg.cloud9.euls.models.transformers.IntegerToBoolean;
 
 /**
  * Item - Represents DT_DOTA_Item
  */
-public interface Item extends Ability {
+public class Item extends Ability {
 
-    @DotAProperty(type = Float.class, propertyName = "m_flPurchaseTime")
-    public Float getPurchaseTime();
+    public Item(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flAssembledTime")
-    public Float getAssembledTime();
 
-    @DotAProperty(type = Integer.class, propertyName = "m_hPurchaser")
-    public Integer getPurchaserHandle();
+    public Float getPurchaseTime() {
+        return getProperty(Float.class, "m_flPurchaseTime");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bCombinable", transformer = IntegerToBoolean.class)
-    public Boolean isCombinable();
+    public Float getAssembledTime() {
+        return getProperty(Float.class, "m_flAssembledTime");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bDroppable", transformer = IntegerToBoolean.class)
-    public Boolean isDroppable();
+    public Integer getPurchaserHandle() {
+        return getProperty(Integer.class, "m_hPurchaser");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iSharability", transformer = IntegerToBoolean.class)
-    public Boolean isShareAble();
+    public Boolean isCombinable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bCombinable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bRequiresCharges", transformer = IntegerToBoolean.class)
-    public Boolean isChargeRequired();
+    public Boolean isDroppable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bDroppable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bSellable", transformer = IntegerToBoolean.class)
-    public Boolean isSellable();
+    public Boolean isShareAble() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_iSharability"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bStackable", transformer = IntegerToBoolean.class)
-    public Boolean isStackable();
+    public Boolean isChargeRequired() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bRequiresCharges"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bDisassemblable", transformer = IntegerToBoolean.class)
-    public Boolean isDisassemblable();
+    public Boolean isSellable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bSellable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bKillable", transformer = IntegerToBoolean.class)
-    public Boolean isKillable();
+    public Boolean isStackable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bStackable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bPermanent", transformer = IntegerToBoolean.class)
-    public Boolean isPermanent();
+    public Boolean isDisassemblable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bDisassemblable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bPurchasable", transformer = IntegerToBoolean.class)
-    public Boolean isPurchasable();
+    public Boolean isKillable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bKillable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_bRecipe", transformer = IntegerToBoolean.class)
-    public Boolean isRecipe();
+    public Boolean isPermanent() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bPermanent"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iInitialCharges")
-    public Integer getInitialCharges();
+    public Boolean isPurchasable() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bPurchasable"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iCurrentCharges")
-    public Integer getCurrentCharges();
+    public Boolean isRecipe() {
+        IntegerToBoolean transformer = new IntegerToBoolean();
+        return transformer.transform(getProperty(Integer.class, "m_bRecipe"));
+    }
+
+
+    public Integer getInitialCharges() {
+        return getProperty(Integer.class, "m_iInitialCharges");
+    }
+
+    public Integer getCurrentCharges() {
+        return getProperty(Integer.class, "m_iCurrentCharges");
+    }
 }

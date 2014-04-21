@@ -1,6 +1,5 @@
 package gg.cloud9.euls;
 
-import gg.cloud9.euls.annotations.ModelProxyFactory;
 import gg.cloud9.euls.constants.LifeState;
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.*;
@@ -126,7 +125,7 @@ public class Replay {
     }
 
     public GameRules getGameRules() {
-        return ModelProxyFactory.getProxy(GameRules.class, this.match.getGameRulesProxy());
+        return new GameRules(this.match.getGameRulesProxy());
     }
 
     public DotaPlayer getDotaPlayerByIndex(Integer i) {
@@ -140,7 +139,7 @@ public class Replay {
         List<Entity> courierEntity = Utils.getEntitiesByTeam(courierIterator, team);
 
         for (Entity entity : courierEntity) {
-            DotaCourier courier = ModelProxyFactory.getProxy(DotaCourier.class, entity);
+            DotaCourier courier = new DotaCourier(entity);
             couriers.add(courier);
         }
 
@@ -152,7 +151,7 @@ public class Replay {
         List<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
 
         for (Entity entity : ancientEntity) {
-            DotaBuilding ancient = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            DotaBuilding ancient = new DotaBuilding(entity);
             return ancient;
         }
 
@@ -166,7 +165,7 @@ public class Replay {
         List<Entity> barracksEntity = Utils.getEntitiesByTeam(barracksIterator, team);
 
         for (Entity entity : barracksEntity) {
-            DotaBuilding barrack = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            DotaBuilding barrack = new DotaBuilding(entity);
             barracks.add(barrack);
         }
 
@@ -180,7 +179,7 @@ public class Replay {
         List<Entity> towersEntity = Utils.getEntitiesByTeam(towersIterator, team);
 
         for (Entity entity : towersEntity) {
-            DotaBuilding tower = ModelProxyFactory.getProxy(DotaBuilding.class, entity);
+            DotaBuilding tower = new DotaBuilding(entity);
             towers.add(tower);
         }
 

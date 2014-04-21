@@ -1,29 +1,40 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAProperty;
 import gg.cloud9.euls.constants.Team;
+import gg.cloud9.euls.models.protobuf.base.EntityBase;
 import gg.cloud9.euls.models.transformers.TeamToEnum;
 
 /**
  * Entity - Represents DT_BaseEntity
  */
-public interface Entity {
+public class Entity extends EntityBase {
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iTeamNum", transformer = TeamToEnum.class)
-    public Team getTeam();
+    public Entity(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = String.class, propertyName = "m_iName")
-    public String getName();
+    public Team getTeam() {
+        TeamToEnum transformer = new TeamToEnum();
+        return transformer.transform(getProperty(Integer.class, "m_iTeamNum"));
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_nModelIndex")
-    public Integer getModelIndex();
+    public String getName() {
+        return getProperty(String.class, "m_iName");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_cellX")
-    public Integer getXCoordinate();
+    public Integer getModelIndex() {
+        return getProperty(Integer.class, "m_nModelIndex");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_cellY")
-    public Integer getYCoordinate();
+    public Integer getXCoordinate() {
+        return getProperty(Integer.class, "m_cellX");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_cellbits")
-    public Integer getCellBits();
+    public Integer getYCoordinate() {
+        return getProperty(Integer.class, "m_cellY");
+    }
+
+    public Integer getCellBits() {
+        return getProperty(Integer.class, "m_cellbits");
+    }
 }

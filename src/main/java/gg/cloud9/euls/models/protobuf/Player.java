@@ -1,15 +1,19 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAProperty;
-
 /**
  * Player - Represents DT_DOTAPlayer
  */
-public interface Player extends Entity {
+public class Player extends Entity {
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iPlayerID")
-    public Integer getPlayerId();
+    public Player(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_hAssignedHero")
-    public Integer getHeroHandle();
+    public Integer getPlayerId() {
+        return getProperty(Integer.class, "m_iPlayerID");
+    }
+
+    public Integer getHeroHandle() {
+        return getProperty(Integer.class, "m_hAssignedHero");
+    }
 }

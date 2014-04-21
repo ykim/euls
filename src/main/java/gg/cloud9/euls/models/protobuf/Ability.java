@@ -1,24 +1,31 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAProperty;
-
 /**
  * Ability - Represents DT_DOTABaseAbility
  */
-public interface Ability extends Entity {
+public class Ability extends Entity {
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iLevel")
-    public Integer getLevel();
+    public Ability(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_fCooldown")
-    public Float getCooldownTime();
+    public Integer getLevel() {
+        return getProperty(Integer.class, "m_iLevel");
+    }
 
-    @DotAProperty(type = Float.class, propertyName = "m_flCooldownLength")
-    public Float getCooldownLength();
+    public Float getCooldownTime() {
+        return getProperty(Float.class, "m_fCooldown");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iManaCost")
-    public Integer getManaCost();
+    public Float getCooldownLength() {
+        return getProperty(Float.class, "m_flCooldownLength");
+    }
 
-    @DotAProperty(type = Integer.class, propertyName = "m_iCastRange")
-    public Integer getCastRange();
+    public Integer getManaCost() {
+        return getProperty(Integer.class, "m_iManaCost");
+    }
+
+    public Integer getCastRange() {
+        return getProperty(Integer.class, "m_iCastRange");
+    }
 }

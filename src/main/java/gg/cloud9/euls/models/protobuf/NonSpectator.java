@@ -1,16 +1,23 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAArrayProperty;
+import gg.cloud9.euls.models.protobuf.base.EntityBase;
 
 import java.util.List;
 
 /**
  * NonSpectator - Represents DT_DOTA_DataNonSpectator
  */
-public interface NonSpectator {
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iReliableGoldDire")
-    public List<Integer> getCurrentReliableGold();
+public class NonSpectator extends EntityBase {
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iUnreliableGold")
-    public List<Integer> getCurrentUnreliableGold();
+    public NonSpectator(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
+
+    public List<Integer> getCurrentReliableGold() {
+        return getListProperty(Integer.class, "m_iReliableGoldDire");
+    }
+
+    public List<Integer> getCurrentUnreliableGold() {
+        return getListProperty(Integer.class, "m_iUnreliableGold");
+    }
 }

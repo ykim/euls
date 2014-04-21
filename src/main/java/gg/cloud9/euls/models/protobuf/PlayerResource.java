@@ -1,8 +1,8 @@
 package gg.cloud9.euls.models.protobuf;
 
-import gg.cloud9.euls.annotations.DotAArrayProperty;
 import gg.cloud9.euls.constants.Hero;
 import gg.cloud9.euls.constants.Team;
+import gg.cloud9.euls.models.protobuf.base.EntityBase;
 import gg.cloud9.euls.models.transformers.HeroToEnum;
 import gg.cloud9.euls.models.transformers.TeamToEnum;
 
@@ -11,48 +11,69 @@ import java.util.List;
 /**
  * PlayerResource - Represents DT_DOTA_PlayerResource
  */
-public interface PlayerResource {
-    @DotAArrayProperty(type = Long.class, propertyName = "m_iPlayerSteamIDs")
-    public List<Long> getSteamIds();
+public class PlayerResource extends EntityBase {
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iPlayerTeams", transformer = TeamToEnum.class)
-    public List<Team> getTeams();
+    public PlayerResource(skadistats.clarity.model.Entity e) {
+        super(e);
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "DireOnlyData.m_iReliableGoldDire")
-    public List<Integer> getDireCurrentReliableGold();
+    public List<Long> getSteamIds() {
+        return getListProperty(Long.class, "m_iPlayerSteamIDs");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "DireOnlyData.m_iUnreliableGoldDire")
-    public List<Integer> getDireCurrentUnreliableGold();
+    public List<Team> getTeams() {
+        TeamToEnum transformer = new TeamToEnum();
+        return transformer.transformArray(getListProperty(Integer.class, "m_iPlayerTeams"));
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iReliableGoldRadiant")
-    public List<Integer> getRadiantCurrentReliableGold();
+    public List<Integer> getDireCurrentReliableGold() {
+        return getListProperty(Integer.class, "DireOnlyData.m_iReliableGoldDire");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "RadiantOnlyData.m_iUnreliableGoldRadiant")
-    public List<Integer> getRadiantCurrentUnreliableGold();
+    public List<Integer> getDireCurrentUnreliableGold() {
+        return getListProperty(Integer.class, "DireOnlyData.m_iUnreliableGoldDire");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_nSelectedHeroID", transformer = HeroToEnum.class)
-    public List<Hero> getSelectedHero();
+    public List<Integer> getRadiantCurrentReliableGold() {
+        return getListProperty(Integer.class, "RadiantOnlyData.m_iReliableGoldRadiant");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iAssists")
-    public List<Integer> getCurrentTotalAssists();
+    public List<Integer> getRadiantCurrentUnreliableGold() {
+        return getListProperty(Integer.class, "RadiantOnlyData.m_iUnreliableGoldRadiant");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iDeaths")
-    public List<Integer> getCurrentTotalDeaths();
+    public List<Hero> getSelectedHero() {
+        HeroToEnum transformer = new HeroToEnum();
+        return transformer.transformArray(getListProperty(Integer.class, "m_nSelectedHeroID"));
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iDenyCount")
-    public List<Integer> getCurrentDenies();
+    public List<Integer> getCurrentTotalAssists() {
+        return getListProperty(Integer.class, "m_iAssists");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iKills")
-    public List<Integer> getCurrentTotalKills();
+    public List<Integer> getCurrentTotalDeaths() {
+        return getListProperty(Integer.class, "m_iDeaths");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iLastHitCount")
-    public List<Integer> getCurrentLastHits();
+    public List<Integer> getCurrentDenies() {
+        return getListProperty(Integer.class, "m_iDenyCount");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iLevel")
-    public List<Integer> getCurrentLevels();
+    public List<Integer> getCurrentTotalKills() {
+        return getListProperty(Integer.class, "m_iKills");
+    }
 
-    @DotAArrayProperty(type = Integer.class, propertyName = "m_iStreak")
-    public List<Integer> getCurrentKillStreak();
+    public List<Integer> getCurrentLastHits() {
+        return getListProperty(Integer.class, "m_iLastHitCount");
+    }
+
+    public List<Integer> getCurrentLevels() {
+        return getListProperty(Integer.class, "m_iLevel");
+    }
+
+    public List<Integer> getCurrentKillStreak() {
+        return getListProperty(Integer.class, "m_iStreak");
+    }
 
 
 }
