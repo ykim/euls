@@ -146,40 +146,40 @@ public class Replay {
         return couriers;
     }
 
-    public DotaBuilding getAncientByTeam(Team team) {
+    public DotaAncient getAncientByTeam(Team team) {
         Iterator<Entity> ancientIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Fort");
         List<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
 
         for (Entity entity : ancientEntity) {
-            DotaBuilding ancient = new DotaBuilding(entity);
+            DotaAncient ancient = new DotaAncient(entity);
             return ancient;
         }
 
         return null;
     }
 
-    public List<DotaBuilding> getBarracksByTeam(Team team) {
-        ArrayList<DotaBuilding> barracks = new ArrayList<DotaBuilding>();
+    public List<DotaBarracks> getBarracksByTeam(Team team) {
+        ArrayList<DotaBarracks> barracks = new ArrayList<DotaBarracks>();
 
         Iterator<Entity> barracksIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Barracks");
         List<Entity> barracksEntity = Utils.getEntitiesByTeam(barracksIterator, team);
 
         for (Entity entity : barracksEntity) {
-            DotaBuilding barrack = new DotaBuilding(entity);
+            DotaBarracks barrack = new DotaBarracks(entity);
             barracks.add(barrack);
         }
 
         return barracks;
     }
 
-    public List<DotaBuilding> getTowersByTeam(Team team) {
-        ArrayList<DotaBuilding> towers = new ArrayList<DotaBuilding>();
+    public List<DotaTower> getTowersByTeam(Team team) {
+        ArrayList<DotaTower> towers = new ArrayList<DotaTower>();
 
         Iterator<Entity> towersIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Tower");
         List<Entity> towersEntity = Utils.getEntitiesByTeam(towersIterator, team);
 
         for (Entity entity : towersEntity) {
-            DotaBuilding tower = new DotaBuilding(entity);
+            DotaTower tower = new DotaTower(entity);
             towers.add(tower);
         }
 
