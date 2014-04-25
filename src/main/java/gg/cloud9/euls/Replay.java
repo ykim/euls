@@ -146,6 +146,16 @@ public class Replay {
         return couriers;
     }
 
+    public DotaRoshan getRoshan() {
+        Entity roshanEntity = this.match.getEntities().getByDtName("DT_DOTA_Unit_Roshan");
+
+        if (roshanEntity != null) {
+            return new DotaRoshan(roshanEntity);
+        }
+
+        return null;
+    }
+
     public DotaAncient getAncientByTeam(Team team) {
         Iterator<Entity> ancientIterator = this.match.getEntities().getAllByDtName("DT_DOTA_BaseNPC_Fort");
         List<Entity> ancientEntity = Utils.getEntitiesByTeam(ancientIterator, team);
@@ -222,8 +232,20 @@ public class Replay {
         return laneCreeps;
     }
 
-    // TODO: Return Events based on type
     public GameEventCollection getGameEvents() {
         return gameEvents;
+    }
+
+    public List<GameEvent> getCombatLogs() {
+        List<GameEvent> combatEvents = new ArrayList<GameEvent>();
+        GameEventCollection events = getGameEvents();
+
+        for (GameEvent event : events) {
+            if (event.getName().equals("dota_combatlog")) {
+                combatEvents.add(event);
+            }
+        }
+
+        return combatEvents;
     }
 }
