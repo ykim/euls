@@ -236,6 +236,38 @@ public class Replay {
         return gameEvents;
     }
 
+    public List<DotaWard> getObserverWardsByTeam(Team team) {
+        ArrayList<DotaWard> wards = new ArrayList<DotaWard>();
+
+        Iterator<Entity> wardIterator = this.match.getEntities().getAllByDtName("DT_DOTA_NPC_Observer_Ward");
+        List<Entity> wardEntities = Utils.getEntitiesByTeam(wardIterator, team);
+
+        for (Entity wardEntity : wardEntities) {
+            if (wardEntity != null) {
+                DotaWard ward = new DotaWard(wardEntity);
+                wards.add(ward);
+            }
+        }
+
+        return wards;
+    }
+
+    public List<DotaWard> getSentryWardsByTeam(Team team) {
+        ArrayList<DotaWard> wards = new ArrayList<DotaWard>();
+
+        Iterator<Entity> wardIterator = this.match.getEntities().getAllByDtName("DT_DOTA_NPC_Observer_Ward_TrueSight");
+        List<Entity> wardEntities = Utils.getEntitiesByTeam(wardIterator, team);
+
+        for (Entity wardEntity : wardEntities) {
+            if (wardEntity != null) {
+                DotaWard ward = new DotaWard(wardEntity);
+                wards.add(ward);
+            }
+        }
+
+        return wards;
+    }
+
     public List<GameEvent> getCombatLogs() {
         List<GameEvent> combatEvents = new ArrayList<GameEvent>();
         GameEventCollection events = getGameEvents();
