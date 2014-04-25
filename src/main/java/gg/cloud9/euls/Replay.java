@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Replay {
-    private static final Integer MAX_PLAYERS = 10;
+    public static final Integer MAX_PLAYERS = 10;
 
     private Match match;
     private DemoInputStreamIterator iter;

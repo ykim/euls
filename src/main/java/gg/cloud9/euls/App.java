@@ -2,19 +2,12 @@ package gg.cloud9.euls;
 
 import gg.cloud9.euls.constants.Team;
 import gg.cloud9.euls.models.*;
-import gg.cloud9.euls.models.protobuf.Courier;
 import gg.cloud9.euls.models.protobuf.GameRules;
-import gg.cloud9.euls.models.protobuf.NPCHero;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import skadistats.clarity.match.GameEventCollection;
-import skadistats.clarity.model.GameEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class App {
     Logger logger = LoggerFactory.getLogger(App.class);
@@ -28,101 +21,106 @@ public class App {
             Replay matchReplay = new Replay(args[0]);
 
             Long start_time = System.currentTimeMillis();
-            HashSet<String> nameOfCreeps = new HashSet<>();
 
             while (matchReplay.tick()) {
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                for (int i = 0; i < 10; i++) {
-//                    DotaPlayer playah = matchReplay.getDotaPlayerByIndex(i);
-//                    List<DotaItem> items = playah.getItems();
-//                    if (items != null) {
-//                        for (DotaItem item : items) {
-//                            if (item != null) {
-//                                System.out.println(item.getItem());
-//                            }
-//                        }
-//                    }
-//                }
+                logger.info(matchReplay.getReplayTimeAsString());
 
-//                // Losing some GameEvents for sure when I tick
-//                List<GameEvent> events = matchReplay.getCombatLogs();
-//                for (GameEvent event : events) {
-//                    System.out.println(event);
-//                }
+                // GameRules example
+                GameRules gameRules = matchReplay.getGameRules();
+                logger.info("Match Id", gameRules.getMatchId());
+                logger.info("Match Type", gameRules.getGameMode());
+                logger.info("Match Time", gameRules.getCurrentGameTime());
 
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                DotaPlayer player = matchReplay.getDotaPlayerByIndex(1);
-//                if (player != null) {
-//                    DotaHero hero = player.getHero();
-//                    if (hero != null) {
-//                        System.out.println(hero.getHero());
-//                        System.out.println(hero.getCurrentHP());
-//                    }
-//                }
-//                System.out.println("");
+                // DotaPlayer example
+                logger.info("Player Iteration");
+                for (int i = 0; i < Replay.MAX_PLAYERS; i++) {
+                    DotaPlayer player = matchReplay.getDotaPlayerByIndex(i);
 
-//                GameRules rules = matchReplay.getGameRules();
-//
-//                if (rules != null) {
-//                    System.out.println(rules.getCurrentGameTime());
-//                }
+                    if (player != null) {
+                        // DotaHero example
+                        DotaHero playerHero = player.getHero();
 
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                List<DotaCourier> couriers = matchReplay.getCouriersByTeam(Team.RADIANT);
-//                for (DotaCourier courier : couriers) {
-//                    if (courier != null) {
-//                        System.out.println(courier.getCurrentHP());
-//                        System.out.println(courier.getCoordinates());
-//                    }
-//                }
+                        if (playerHero != null) {
+                            logger.info("Hero", playerHero.getHero());
+                            logger.info("Level", playerHero.getCurrentLevel());
+                            logger.info("HP", playerHero.getCurrentHP());
+                            logger.info("Mana", playerHero.getCurrentMana());
+                            logger.info("Coordinates", playerHero.getCoordinates());
+                            logger.info("Last Hits", player.getCurrentLastHits());
+                            logger.info("Denies", player.getCurrentDenies());
 
-//                List<DotaBarracks> ancient = matchReplay.getBarracksByTeam(Team.DIRE);
-//                if (ancient != null) {
-//                    for (DotaBuilding tower : ancient) {
-//                        if (tower != null) {
-//                            System.out.println(tower.getName());
-//                        }
-//                    }
-//                }
+                            // DotaItem eample
+                            List<DotaItem> items = player.getItems();
+                            for (int j = 0; j < items.size(); j++) {
+                                DotaItem item = items.get(j);
+                                if (item != null) {
+                                    logger.info("Item " + j, item.getItem());
+                                }
+                            }
+                        }
+                    }
+                }
 
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                ArrayList<DotaBuilding> couriers = matchReplay.getBarracksByTeam(Team.RADIANT);
-//                for (DotaBuilding courier : couriers) {
-//                    if (courier != null) {
-//                        System.out.println(courier.getName());
-//                        System.out.println(courier.getCurrentHP());
-//                        System.out.println(Utils.cellToCoordinates(courier.getXCoordinate(), courier.getYCoordinate(), courier.getVectorOrigin(), courier.getCellBits()));
-//                    }
-//                }
+                // DotaCourier Example
+                logger.info("Radiant Team's Courier");
+                List<DotaCourier> couriers = matchReplay.getCouriersByTeam(Team.RADIANT);
+                for (DotaCourier courier : couriers) {
+                    if (courier != null) {
+                        logger.info("Coordinate", courier.getCoordinates());
+                    }
+                }
 
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                ArrayList<DotaLaneCreep> couriers = matchReplay.getLaneCreepsByTeam(Team.RADIANT);
-//                for (DotaLaneCreep courier : couriers) {
-//                    if (courier != null) {
-//                        System.out.println(courier.getName());
-//                        System.out.println(courier.getCurrentHP());
-//                        System.out.println(Utils.cellToCoordinates(courier.getXCoordinate(), courier.getYCoordinate(), courier.getVectorOrigin(), courier.getCellBits()));
-//                    }
-//                }
+                // DotaTower Example - Similar to DotaBarracks and DotaAncient
+                logger.info("Dire Team's Towers");
+                List<DotaTower> towers = matchReplay.getTowersByTeam(Team.DIRE);
+                for (DotaTower tower : towers) {
+                    if (tower != null) {
+                        logger.info("Tier", tower.getTier());
+                        logger.info("Lane", tower.getLane());
+                        logger.info("HP", tower.getCurrentHP());
+                    }
+                }
 
-//                List<DotaNeutralCreep> couriers = matchReplay.getNeutralCreeps();
-//                for (DotaNeutralCreep courier : couriers) {
-//                    nameOfCreeps.add(courier.getName());
-//                }
 
-//                System.out.println(matchReplay.getReplayTimeAsString());
-//                List<DotaWard> wards = matchReplay.getSentryWardsByTeam(Team.RADIANT);
-//                for (DotaWard ward: wards) {
-//                    System.out.println(ward.getCoordinates());
-//                }
+                // DotaLaneCreep Example
+                logger.info("Radiant Team's Creeps");
+                List<DotaLaneCreep> creeps = matchReplay.getLaneCreepsByTeam(Team.RADIANT);
+                for (DotaLaneCreep creep : creeps) {
+                    if (creep != null) {
+                        logger.info("Name", creep.getName());
+                        logger.info("Coordinate", creep.getCoordinates());
+                        logger.info("HP", creep.getCurrentHP());
+                    }
+                }
+
+                // DotaNeutralCreep example
+                logger.info("Neutral Creeps");
+                List<DotaNeutralCreep> neutrals = matchReplay.getNeutralCreeps();
+                for (DotaNeutralCreep neutralCreep : neutrals) {
+                    logger.info("Name", neutralCreep.getName());
+                    logger.info("Coordinate", neutralCreep.getCoordinates());
+                    logger.info("HP", neutralCreep.getCurrentHP());
+                }
+
+                // DotaRoshan example
+                logger.info("Roshan");
+                DotaRoshan roshan = matchReplay.getRoshan();
+                if (roshan != null) {
+                    logger.info("HP", roshan.getCurrentHP());
+                }
+
+                // Ward Examples
+                logger.info("Dire Observer Ward");
+                List<DotaWard> wards = matchReplay.getObserverWardsByTeam(Team.DIRE);
+                for (DotaWard ward : wards) {
+                    if (ward != null) {
+                        logger.info("Coordinate", ward.getCoordinates());
+                    }
+                }
             }
 
-//            Long end_time = System.currentTimeMillis();
-//            System.out.println((end_time - start_time));
-//
-//            for (String s : nameOfCreeps) {
-//                System.out.println(s);
-//            }
+            Long end_time = System.currentTimeMillis();
+            System.out.println((end_time - start_time));
         } catch (IOException e) {
             logger.error(args[0] + " could not be opened");
         }
