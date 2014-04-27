@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Replay {
+public class Replay implements Iterable<Replay> {
     public static final Integer MAX_PLAYERS = 10;
 
     private Match match;
@@ -279,5 +279,28 @@ public class Replay {
         }
 
         return combatEvents;
+    }
+
+
+    /*
+     * Implement Iterable so Replay can be used like:
+     *
+     *    for (Replay state : replay) {
+     *    }
+     *
+     */
+    public Iterator<Replay> iterator() {
+        final Replay r = this;
+        return new Iterator<Replay>() {
+
+            public boolean hasNext() {
+                return r.iter.hasNext();
+            }
+
+            public Replay next() {
+                r.tick();
+                return r;
+            }
+        };
     }
 }
