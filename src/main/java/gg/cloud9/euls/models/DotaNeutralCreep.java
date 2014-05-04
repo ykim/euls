@@ -1,5 +1,6 @@
 package gg.cloud9.euls.models;
 
+import gg.cloud9.euls.constants.Neutral;
 import gg.cloud9.euls.models.protobuf.NPC;
 import skadistats.clarity.model.Entity;
 import skadistats.clarity.model.StringTable;
@@ -22,5 +23,9 @@ public class DotaNeutralCreep extends NPC {
             }
         }
         return null;
+    }
+
+    public Neutral getNeutral() {
+        return Neutral.fromModelName(getName(), getCurrentLevel()).orNull();
     }
 }
