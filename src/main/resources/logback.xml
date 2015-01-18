@@ -1,57 +1,57 @@
 <configuration>
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>project.log</file>
-		<encoder>
-			<pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
-	<appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
-		<target>System.err</target>
-		<encoder>
-			<pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>project.log</file>
+        <encoder>
+            <pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <encoder>
+            <pattern>%d{ISO8601} [%thread] [%marker] %-5level - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
-	<root level="debug">
-		<appender-ref ref="FILE" />
-		<appender-ref ref="STDERR" />
-	</root>
+    <root level="info">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDERR"/>
+    </root>
 
-	<logger name="gg.cloud9" level="TRACE" />
+    <logger name="ykim" level="TRACE"/>
 
-	<logger name="org.reflections" level="warn" />
+    <logger name="org.reflections" level="warn"/>
 
-	<logger name="clarity.parser.Peek" level="info" />
-	<logger name="clarity.parser.HandlerRegistry" level="info" />
+    <logger name="clarity.parser.Peek" level="info"/>
+    <logger name="clarity.parser.HandlerRegistry" level="info"/>
 
-	<logger name="clarity.decoder.StringTableApplier" level="info" />
-	<logger name="clarity.decoder.PacketEntitiesDecoder" level="info" />
-	<logger name="clarity.decoder.TempEntitiesDecoder" level="info" />
+    <logger name="clarity.decoder.StringTableApplier" level="info"/>
+    <logger name="clarity.decoder.PacketEntitiesDecoder" level="info"/>
+    <logger name="clarity.decoder.TempEntitiesDecoder" level="info"/>
 
-	<logger name="clarity.parser.handler.DemClassInfoHandler" level="info" />
-	<logger name="clarity.parser.handler.DemFileHeaderHandler" level="info" />
-	<logger name="clarity.parser.handler.DemStringTablesHandler" level="info" />
-	<logger name="clarity.parser.handler.DemSyncTickHandler" level="info" />
-	<logger name="clarity.parser.handler.NetTickHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcClassInfoHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcCreateStringTableHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcGameEventHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcGameEventListHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcPacketEntitiesHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcTempEntitiesHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcSendTableHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcServerInfoHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcUpdateStringTableHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcVoiceDataHandler" level="info" />
-	<logger name="clarity.parser.handler.SvcVoiceInitHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgChatEventHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgCreateLinearProjectileHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgDestroyLinearProjectileHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgDodgeTrackingProjectilesHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgParticleManagerHandler" level="info" />
-	<logger name="clarity.parser.handler.UserMsgGamerulesStateChangedHandler" level="info" />
+    <logger name="clarity.parser.handler.DemClassInfoHandler" level="info"/>
+    <logger name="clarity.parser.handler.DemFileHeaderHandler" level="info"/>
+    <logger name="clarity.parser.handler.DemStringTablesHandler" level="info"/>
+    <logger name="clarity.parser.handler.DemSyncTickHandler" level="info"/>
+    <logger name="clarity.parser.handler.NetTickHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcClassInfoHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcCreateStringTableHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcGameEventHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcGameEventListHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcPacketEntitiesHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcTempEntitiesHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcSendTableHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcServerInfoHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcUpdateStringTableHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcVoiceDataHandler" level="info"/>
+    <logger name="clarity.parser.handler.SvcVoiceInitHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgChatEventHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgCreateLinearProjectileHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgDestroyLinearProjectileHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgDodgeTrackingProjectilesHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgParticleManagerHandler" level="info"/>
+    <logger name="clarity.parser.handler.UserMsgGamerulesStateChangedHandler" level="info"/>
 </configuration>
 
 
