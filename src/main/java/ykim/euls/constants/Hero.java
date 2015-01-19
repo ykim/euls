@@ -109,11 +109,13 @@ public enum Hero {
     ABADDON(102, "Abaddon", "DT_DOTA_Unit_Hero_Abaddon"),
     ELDERTITAN(103, "Elder Titan", "DT_DOTA_Unit_Hero_Elder_Titan"),
     LEGIONCOMMANDER(104, "Legion Commander", "DT_DOTA_Unit_Hero_Legion_Commander"),
+    TECHIES(105, "Techies", "DT_DOTA_Unit_Hero_Techies"),
     EMBERSPIRIT(106, "Ember Spirit", "DT_DOTA_Unit_Hero_EmberSpirit"),
     EARTHSPIRIT(107, "Earth Spirit", "DT_DOTA_Unit_Hero_EarthSpirit"),
     ABYSSALUNDERLORD(108, "Abyssal Underlord", "DT_DOTA_Unit_Hero_AbyssalUnderlord"),
     TERRORBLADE(109, "Terrorblade", "DT_DOTA_Unit_Hero_Terrorblade"),
-    PHOENIX(110, "Phoenix", "DT_DOTA_Unit_Hero_Phoenix");
+    PHOENIX(110, "Phoenix", "DT_DOTA_Unit_Hero_Phoenix"),
+    ORACLE(111, "Oracle", "DT_DOTA_Unit_Hero_Oracle");
 
     private final Integer id;
     private final String publicName;

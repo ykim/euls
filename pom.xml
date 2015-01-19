@@ -13,26 +13,30 @@
 		<dependency>
 			<groupId>com.skadistats</groupId>
 			<artifactId>clarity</artifactId>
-			<version>1.0</version>
+			<version>1.1</version>
 			<exclusions>
 				<exclusion>
+					<groupId>com.google.guava</groupId>
 					<artifactId>guava-collections</artifactId>
-					<groupId>com.google.guava</groupId>
 				</exclusion>
 				<exclusion>
+					<groupId>com.google.guava</groupId>
 					<artifactId>guava</artifactId>
-					<groupId>com.google.guava</groupId>
 				</exclusion>
 				<exclusion>
-					<artifactId>logback-classic</artifactId>
 					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>joda-time</groupId>
+					<artifactId>joda-time</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>16.0.1</version>
+			<version>18.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -44,6 +48,11 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.1</version>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.6</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -114,7 +123,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>ykim.euls.App</mainClass>
+									<mainClass>ykim.euls.example.App</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

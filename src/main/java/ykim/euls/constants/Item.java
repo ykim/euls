@@ -240,7 +240,8 @@ public enum Item {
     WINTER_GREEVIL_TREAT(238, "DOTA_Tooltip_Ability_item_winter_greevil_treat", "item_winter_greevil_treat"),
     WINTER_GREEVIL_GARBAGE(239, "DOTA_Tooltip_Ability_item_winter_greevil_garbage", "item_winter_greevil_garbage"),
     WINTER_GREEVIL_CHEWY(240, "DOTA_Tooltip_Ability_item_winter_greevil_chewy", "item_winter_greevil_chewy"),
-    TANGO_SINGLE(241, "Tango (Single)", "item_tango_single");
+    TANGO_SINGLE(241, "Tango (Single)", "item_tango_single"),
+    CRIMSON_GUARD(242, "Crimson Guard", "item_crimson_guard");
 
     private final Integer id;
     private final String publicName;

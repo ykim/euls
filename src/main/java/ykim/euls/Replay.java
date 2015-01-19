@@ -1,5 +1,8 @@
 package ykim.euls;
 
+import org.joda.time.Duration;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import ykim.euls.constants.LifeState;
 import ykim.euls.constants.Team;
 import ykim.euls.models.*;
@@ -11,8 +14,8 @@ import skadistats.clarity.match.Match;
 import skadistats.clarity.model.Entity;
 import skadistats.clarity.model.GameEvent;
 import skadistats.clarity.model.StringTable;
-import skadistats.clarity.parser.DemoInputStreamIterator;
 import skadistats.clarity.parser.Peek;
+import skadistats.clarity.parser.PeekIterator;
 import skadistats.clarity.parser.Profile;
 
 import java.io.IOException;
@@ -22,9 +25,16 @@ import java.util.List;
 
 public class Replay implements Iterable<Replay> {
     public static final Integer MAX_PLAYERS = 10;
+    private static final PeriodFormatter GAMETIME_FORMATTER = new PeriodFormatterBuilder()
+            .minimumPrintedDigits(2)
+            .printZeroAlways()
+            .appendMinutes()
+            .appendLiteral(":")
+            .appendSeconds()
+            .toFormatter();
 
     private Match match;
-    private DemoInputStreamIterator iter;
+    private PeekIterator iter;
     public StringTable models;
     private ArrayList<DotaPlayer> players = new ArrayList<DotaPlayer>();
     private GameEventCollection gameEvents = new GameEventCollection();
@@ -35,7 +45,7 @@ public class Replay implements Iterable<Replay> {
 
     public Replay(String fileName) throws IOException {
         this.match = new Match();
-        this.iter = Clarity.iteratorForFile(fileName, Profile.ALL);
+        this.iter = Clarity.peekIteratorForFile(fileName, Profile.ALL);
         this.nextPeek = null;
         this.complete = Boolean.FALSE;
 
@@ -122,6 +132,47 @@ public class Replay implements Iterable<Replay> {
 
     public String getReplayTimeAsString() {
         return this.match.getReplayTimeAsString();
+    }
+
+    public Float getGameTime() {
+        GameRules gameRule = getGameRules();
+        if (gameRule.getCurrentGameState() != null) {
+            switch (gameRule.getCurrentGameState()) {
+                case DRAFT:
+                    return gameRule.getCurrentGameTime() - gameRule.getDraftStartTime();
+                case GAME:
+                    return gameRule.getCurrentGameTime() - gameRule.getGameStartTime();
+                case PREGAME:
+                    return gameRule.getCurrentGameTime() - gameRule.getPreGameStartTime();
+                default:
+                    return null;
+            }
+        }
+        return null;
+    }
+
+    public String getGameTimeAsString() {
+        GameRules gameRule = getGameRules();
+        if (gameRule.getCurrentGameState() != null) {
+            Long gameTimeInMilliSecond = 0L;
+
+            switch (gameRule.getCurrentGameState()) {
+                case DRAFT:
+                case GAME:
+                    gameTimeInMilliSecond = (long) (1000.0f * getGameTime());
+                    return GAMETIME_FORMATTER.print(Duration.millis(gameTimeInMilliSecond).toPeriod());
+                case PREGAME:
+                    gameTimeInMilliSecond = 90000L - ((long) (1000.0f * getGameTime()));
+                    if (gameTimeInMilliSecond > 1000L) {
+                        return "-".concat(GAMETIME_FORMATTER.print(Duration.millis(gameTimeInMilliSecond).toPeriod()));
+                    } else {
+                        return GAMETIME_FORMATTER.print(Duration.millis(gameTimeInMilliSecond).toPeriod());
+                    }
+                default:
+                    return null;
+            }
+        }
+        return null;
     }
 
     public GameRules getGameRules() {
@@ -266,6 +317,23 @@ public class Replay implements Iterable<Replay> {
         }
 
         return wards;
+    }
+
+    public List<DotaRune> getRunes() {
+        ArrayList<DotaRune> runes = new ArrayList<DotaRune>();
+
+        Iterator<Entity> runeIterator = this.match.getEntities().getAllByDtName("DT_DOTA_Item_Rune");
+
+        while (runeIterator.hasNext()) {
+            Entity runeEntity = runeIterator.next();
+
+            if (runeEntity != null) {
+                DotaRune rune = new DotaRune(runeEntity);
+                runes.add(rune);
+            }
+        }
+
+        return runes;
     }
 
     public List<GameEvent> getCombatLogs() {

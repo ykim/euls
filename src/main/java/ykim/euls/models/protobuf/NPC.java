@@ -50,7 +50,6 @@ public class NPC extends Entity {
         return getProperty(Integer.class, "m_iCurrentLevel");
     }
 
-
     public Integer getCurrentHP() {
         return getProperty(Integer.class, "m_iHealth");
     }
@@ -73,6 +72,22 @@ public class NPC extends Entity {
 
     public Float getCurrentManaRegen() {
         return getProperty(Float.class, "m_flManaThinkRegen");
+    }
+
+    public Integer getMinDamage() {
+        return getProperty(Integer.class, "m_iDamageMin");
+    }
+
+    public Integer getMaxDamage() {
+        return getProperty(Integer.class, "m_iDamageMax");
+    }
+
+    public Integer getBonusDamage() {
+        return getProperty(Integer.class, "m_iDamageBonus");
+    }
+
+    public Long getTotalDamageTaken() {
+        return getProperty(Long.class, "m_nTotalDamageTaken");
     }
 
     public Boolean isNeutralUnit() {

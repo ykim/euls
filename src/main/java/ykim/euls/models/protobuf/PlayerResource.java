@@ -75,5 +75,12 @@ public class PlayerResource extends EntityBase {
         return getListProperty(Integer.class, "m_iStreak");
     }
 
+    public List<Integer> getRespawnInSeconds() {
+        return getListProperty(Integer.class, "m_iRespawnSeconds");
+    }
+
+    public List<Integer> getLastBuyBackTime() {
+        return getListProperty(Integer.class, "m_iLastBuybackTime");
+    }
 
 }

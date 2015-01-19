@@ -20,7 +20,8 @@ public enum GameMode {
     MID_ONLY(11),
     LEAST_PLAYED(12),
     NEW_PLAYER_POOL(13),
-    COMPENDIUM_MATCHMAKING(14);
+    COMPENDIUM_MATCHMAKING(14),
+    CUSTOM(15);
 
     private final Integer id;
 
